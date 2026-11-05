@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Ud3_Ejemplo3</string>
+    <string name="bandera1">España</string>
+    <string name="bandera2">Irlanda</string>
+    <string name="bandera3">Italia</string>
+    <string name="bandera4">Bélgica</string>
+    <string name="bandera5">Francia</string>
+    <string name="abrir">Abrir</string>
+    <string name="capital">Capital</string>
+    <string name="capital1">Madrid</string>
+    <string name="capital2">Dublin</string>
+    <string name="capital3">Roma</string>
+    <string name="capital4">Bruselas</string>
+    <string name="capital5">Paris</string>
+    <string name="cerrar">cerrar</string>
+</resources>
