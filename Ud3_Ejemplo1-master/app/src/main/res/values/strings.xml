@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Ud3_Ejemplo1</string>
+    <string name="bandera1">España</string>
+    <string name="bandera2">Irlanda</string>
+    <string name="bandera3">Italia</string>
+    <string name="bandera4">Bélgica</string>
+    <string name="bandera5">Francia</string>
+</resources>
