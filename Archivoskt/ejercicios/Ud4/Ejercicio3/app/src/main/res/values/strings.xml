@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Ud4_Ejemplo3</string>
+    <string name="enhorabuena">¡Enhorabuena!</string>
+    <string name="puntos">Has logrado %d puntos</string>
+    <string name="salir">Salir</string>
+    <string name="jugar_otra_vez">Jugar otra vez</string>
+    <string name="ahorcado">Ahorcado</string>
+    <string name="puntuacion">Puntos: %1$s</string>
+    <string name="rondas">Rondas: %1$s</string>
+    <string name="ronda">Ronda %1$s</string>
+    <string name="contador_errores">Errores: %1$d/%2$d</string>
+    <string name="letras_usadas">Letras usadas</string>
+    <string name="letras_falladas">Letras falladas</string>
+    <string name="ninguna">ninguna</string>
+    <string name="letra_incorrecta">La letra no es correcta.</string>
+    <string name="letra_ya_usada">Ya has utilizado esta letra.</string>
+    <string name="fin_juego">Fin del juego</string>
+    <string name="introduce_una_letra">Introduce una letra</string>
+</resources>

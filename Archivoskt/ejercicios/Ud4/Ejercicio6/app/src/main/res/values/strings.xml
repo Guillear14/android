@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ud4_EjercicioTarea</string>
+    <string name="app_tareas">App Tareas</string>
+    <string name="inserta_nueva_tarea">Inserta nueva tarea</string>
+    <string name="titulo">Título</string>
+    <string name="modulo_asociado">Módulo asociado</string>
+    <string name="urgente">Urgente</string>
+    <string name="descripcion">Descripción</string>
+    <string name="insertar">Insertar</string>
+</resources>

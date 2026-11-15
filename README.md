@@ -27,6 +27,10 @@ android/
 
 No se incluye un `00_Plantilla_Examen`: el material disponible contiene proyectos de ejemplo independientes, pero no una plantilla Android genérica.
 
+## Fuentes Kotlin en `Archivoskt`
+
+`Archivoskt` es un único proyecto Gradle con un módulo Android independiente para cada ejercicio, agrupado en `Archivoskt/ejercicios/UdX/EjercicioN`. Los proyectos sin unidad identificada se incluyen como módulos en `Archivoskt/ejercicios/ProyectosIndependientes`. Abre la carpeta `Archivoskt` en Android Studio para sincronizar y ejecutar cualquiera de sus módulos.
+
 ## Teoría
 
 - [Programación Kotlin](./01_Teoria_y_Enunciados_PDF/Android_ProgramacionKotlin.pdf)
