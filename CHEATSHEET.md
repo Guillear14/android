@@ -1,7 +1,7 @@
 # 📱 CHEATSHEET TÉCNICA DE ANDROID (KOTLIN & JETPACK COMPOSE)
 > **Chuleta rápida de consulta para exámenes.**  
 > Formato indexado para búsqueda ultrarrápida mediante `Ctrl + F`.  
-> *Palabras clave indexadas*: `Composable`, `Modifier`, `State`, `remember`, `mutableStateOf`, `LazyColumn`, `LazyVerticalGrid`, `ViewModel`, `StateFlow`, `collectAsState`, `Scaffold`, `Card`, `AlertDialog`, `RadioButton`, `Checkbox`, `Switch`, `OutlinedTextField`, `TextField`, `KeyboardOptions`, `KeyboardActions`, `selectableGroup`, `selectable`, `NumberFormat`, `update`, `copy`.
+> *Palabras clave indexadas*: `Composable`, `Modifier`, `State`, `remember`, `mutableStateOf`, `LazyColumn`, `LazyVerticalGrid`, `ViewModel`, `StateFlow`, `collectAsState`, `Scaffold`, `Card`, `AlertDialog`, `RadioButton`, `Checkbox`, `Switch`, `OutlinedTextField`, `TextField`, `KeyboardOptions`, `KeyboardActions`, `selectableGroup`, `selectable`, `NumberFormat`, `update`, `copy`, `TareaUIState`, `FocusRequester`, `UDF`.
 
 ---
 
@@ -25,7 +25,9 @@
    - *Keywords*: `open class Producto`, `Hamburguesa`, `Pizza`, `Pedido`, `RestauranteUIState`, `RestauranteViewModel`, `RadioButton`, `Checkbox`, `Switch`, `LocalDate`.
 9. [Módulo 9: Ejercicio 2 — Gestor de Módulos DAM / Tareas Urgentes](#módulo-9-ejercicio-2--gestor-de-módulos-dam--tareas-urgentes)
    - *Keywords*: `modulo`, `ModuloUIState`, `ModuloViewModel`, `LazyColumn`, `Card`, `RadioButton`, `Checkbox`, `OutlinedTextField`, `Modifier.weight`, `HorizontalDivider`.
-10. [Módulo 10: Referencia Rápida de Snippets y Patrones de Examen](#módulo-10-referencia-rápida-de-snippets-y-patrones-de-examen)
+10. [Módulo 10: Ud4_EjercicioTarea — App Tareas y flujo unidireccional](#módulo-10-ud4_ejerciciotarea--app-tareas-y-flujo-unidireccional)
+   - *Keywords*: `Tarea`, `TareaUIState`, `TareaViewModel`, `StateFlow`, `collectAsState`, `update`, `LazyColumn`, `FocusRequester`.
+11. [Módulo 11: Referencia Rápida de Snippets y Patrones de Examen](#módulo-11-referencia-rápida-de-snippets-y-patrones-de-examen)
 
 ---
 
@@ -34,7 +36,7 @@
 
 ### Bloque 1.1: Actividad y Punto de Entrada Compose
 - **Ejercicio**: Ud2_Ejercicio1 (Calculadora de IVA)
-- **Archivo**: `Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
+- **Archivo**: `03_Unidad2_DIU_y_Formularios/Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
 - **Inicio**: Línea 38 (`class MainActivity : ComponentActivity()`)
 - **Fin**: Línea 52 (`}`)
 - **Código**:
@@ -58,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
 ### Bloque 1.2: Pantalla Principal con Estado Local y RadioButtons
 - **Ejercicio**: Ud2_Ejercicio1 (Calculadora de IVA)
-- **Archivo**: `Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
+- **Archivo**: `03_Unidad2_DIU_y_Formularios/Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
 - **Inicio**: Línea 54 (`fun Ud2Ejercicio2App(modifier: Modifier = Modifier)`)
 - **Fin**: Línea 120 (`}`)
 - **Código**:
@@ -134,7 +136,7 @@ fun Ud2Ejercicio2App(modifier: Modifier = Modifier) {
 
 ### Bloque 1.3: Campo de Entrada Reutilizable para Números
 - **Ejercicio**: Ud2_Ejercicio1 (Calculadora de IVA)
-- **Archivo**: `Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
+- **Archivo**: `03_Unidad2_DIU_y_Formularios/Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
 - **Inicio**: Línea 122 (`fun CampoEdicionPrecio(`)
 - **Fin**: Línea 136 (`}`)
 - **Código**:
@@ -158,7 +160,7 @@ fun CampoEdicionPrecio(
 
 ### Bloque 1.4: Lógica de Negocio y Formateo Monetario
 - **Ejercicio**: Ud2_Ejercicio1 (Calculadora de IVA)
-- **Archivo**: `Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
+- **Archivo**: `03_Unidad2_DIU_y_Formularios/Ud2_Ejercicio1-master/app/src/main/java/com/example/ud2_ejercicio1/MainActivity.kt`
 - **Inicio**: Línea 138 (`private fun calcularIva(precio: Double, ivaRadio: Double): String`)
 - **Fin**: Línea 143 (`}`)
 - **Código**:
@@ -178,7 +180,7 @@ private fun calcularIva(precio: Double, ivaRadio: Double): String {
 
 ### Bloque 2.1: Modelo de Datos con Anotaciones de Recursos
 - **Ejercicio**: Ud3_Ejemplo1 (Lista Básica)
-- **Archivo**: `Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/modelo/Bandera.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/modelo/Bandera.kt`
 - **Inicio**: Línea 6 (`data class Bandera(`)
 - **Fin**: Línea 10 (`)`)
 - **Código**:
@@ -192,7 +194,7 @@ data class Bandera(
 
 ### Bloque 2.2: Repositorio de Carga de Datos
 - **Ejercicio**: Ud3_Ejemplo1 (Lista Básica)
-- **Archivo**: `Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/datos/Datos.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/datos/Datos.kt`
 - **Inicio**: Línea 6 (`class Datos {`)
 - **Fin**: Línea 14 (`}`)
 - **Código**:
@@ -210,7 +212,7 @@ class Datos {
 
 ### Bloque 2.3: Implementación de LazyColumn
 - **Ejercicio**: Ud3_Ejemplo1 (Lista Básica)
-- **Archivo**: `Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/MainActivity.kt`
 - **Inicio**: Línea 44 (`fun Ud3Ejemplo1App(modifier: Modifier = Modifier)`)
 - **Fin**: Línea 62 (`}`)
 - **Código**:
@@ -238,7 +240,7 @@ fun ListaBanderas(lista: List<Bandera>, modifier: Modifier = Modifier) {
 
 ### Bloque 2.4: Diseño del Ítem con Card, Row e Image
 - **Ejercicio**: Ud3_Ejemplo1 (Lista Básica)
-- **Archivo**: `Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo1-master/app/src/main/java/com/example/ud3_ejemplo1/MainActivity.kt`
 - **Inicio**: Línea 64 (`fun TarjetaBandera(bandera: Bandera, modifier: Modifier = Modifier)`)
 - **Fin**: Línea 82 (`}`)
 - **Código**:
@@ -271,7 +273,7 @@ fun TarjetaBandera(bandera: Bandera, modifier: Modifier = Modifier) {
 
 ### Bloque 3.1: LazyColumn con Evento de Selección y Callback Lambda
 - **Ejercicio**: Ud3_Ejemplo2 (Lista con Clics)
-- **Archivo**: `Ud3_Ejemplo2-master/app/src/main/java/com/example/ud3_ejemplo2/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo2-master/app/src/main/java/com/example/ud3_ejemplo2/MainActivity.kt`
 - **Inicio**: Línea 47 (`fun Ud3Ejemplo2App(modifier: Modifier = Modifier)`)
 - **Fin**: Línea 69 (`}`)
 - **Código**:
@@ -303,7 +305,7 @@ fun ListaBanderas(lista: List<Bandera>, modifier: Modifier = Modifier) {
 
 ### Bloque 3.2: Envoltura Clicable para el Ítem de la Lista
 - **Ejercicio**: Ud3_Ejemplo2 (Lista con Clics)
-- **Archivo**: `Ud3_Ejemplo2-master/app/src/main/java/com/example/ud3_ejemplo2/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo2-master/app/src/main/java/com/example/ud3_ejemplo2/MainActivity.kt`
 - **Inicio**: Línea 71 (`fun ItemBandera(bandera: Bandera, onItemClick: (Bandera) -> Unit)`)
 - **Fin**: Línea 80 (`}`)
 - **Código**:
@@ -321,7 +323,7 @@ fun ItemBandera(bandera: Bandera, onItemClick: (Bandera) -> Unit) {
 
 ### Bloque 3.3: Tarjeta Visual del Ítem
 - **Ejercicio**: Ud3_Ejemplo2 (Lista con Clics)
-- **Archivo**: `Ud3_Ejemplo2-master/app/src/main/java/com/example/ud3_ejemplo2/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo2-master/app/src/main/java/com/example/ud3_ejemplo2/MainActivity.kt`
 - **Inicio**: Línea 83 (`fun TarjetaBandera(bandera: Bandera, modifier: Modifier = Modifier)`)
 - **Fin**: Línea 101 (`}`)
 - **Código**:
@@ -354,7 +356,7 @@ fun TarjetaBandera(bandera: Bandera, modifier: Modifier = Modifier) {
 
 ### Bloque 4.1: Modelo con Recurso de Información Extra
 - **Ejercicio**: Ud3_Ejemplo3 (Tarjetas Expandibles)
-- **Archivo**: `Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/modelo/Bandera.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/modelo/Bandera.kt`
 - **Inicio**: Línea 6 (`data class Bandera(`)
 - **Fin**: Línea 11 (`)`)
 - **Código**:
@@ -369,7 +371,7 @@ data class Bandera(
 
 ### Bloque 4.2: Tarjeta con Estado Local de Expansión
 - **Ejercicio**: Ud3_Ejemplo3 (Tarjetas Expandibles)
-- **Archivo**: `Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/MainActivity.kt`
 - **Inicio**: Línea 73 (`fun TarjetaBandera(bandera: Bandera, modifier: Modifier = Modifier)`)
 - **Fin**: Línea 112 (`}`)
 - **Código**:
@@ -418,7 +420,7 @@ fun TarjetaBandera(bandera: Bandera, modifier: Modifier = Modifier) {
 
 ### Bloque 4.3: Botón de Toggle con Alternancia de Iconos
 - **Ejercicio**: Ud3_Ejemplo3 (Tarjetas Expandibles)
-- **Archivo**: `Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/MainActivity.kt`
 - **Inicio**: Línea 114 (`private fun TarjetaBoton(`)
 - **Fin**: Línea 131 (`}`)
 - **Código**:
@@ -443,7 +445,7 @@ private fun TarjetaBoton(
 
 ### Bloque 4.4: Contenido Revelado Condicionalmente
 - **Ejercicio**: Ud3_Ejemplo3 (Tarjetas Expandibles)
-- **Archivo**: `Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/MainActivity.kt`
+- **Archivo**: `04_Unidad3_Listas_y_Componentes/Ud3_Ejemplo3-master/app/src/main/java/com/example/ud3_ejemplo3/MainActivity.kt`
 - **Inicio**: Línea 133 (`fun InformacionBandera(`)
 - **Fin**: Línea 150 (`}`)
 - **Código**:
@@ -475,7 +477,7 @@ fun InformacionBandera(
 
 ### Bloque 5.1: Sobrescritura de los 7 Callbacks del Ciclo de Vida
 - **Ejercicio**: Ud4_Ejemplo1 (Ciclo de Vida)
-- **Archivo**: `Ud4_Ejemplo1-master/app/src/main/java/com/example/ud4_ejemplo1/MainActivity.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo1-master/app/src/main/java/com/example/ud4_ejemplo1/MainActivity.kt`
 - **Inicio**: Línea 16 (`private const val TAG = "MainActivity"`)
 - **Fin**: Línea 64 (`}`)
 - **Código**:
@@ -538,7 +540,7 @@ class MainActivity : ComponentActivity() {
 
 ### Bloque 6.1: Estado Inmutable de la Interfaz (UI State)
 - **Ejercicio**: Ud4_Ejemplo2 (Calculadora MVVM)
-- **Archivo**: `Ud4_Ejemplo2-master/app/src/main/java/com/example/ud4_ejemplo2/modelo/OperacionUIState.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo2-master/app/src/main/java/com/example/ud4_ejemplo2/modelo/OperacionUIState.kt`
 - **Inicio**: Línea 3 (`data class OperacionUIState(`)
 - **Fin**: Línea 7 (`)`)
 - **Código**:
@@ -552,7 +554,7 @@ data class OperacionUIState(
 
 ### Bloque 6.2: ViewModel con StateFlow, Mutación Atómica y Cálculos
 - **Ejercicio**: Ud4_Ejemplo2 (Calculadora MVVM)
-- **Archivo**: `Ud4_Ejemplo2-master/app/src/main/java/com/example/ud4_ejemplo2/ui/OperacionViewModel.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo2-master/app/src/main/java/com/example/ud4_ejemplo2/ui/OperacionViewModel.kt`
 - **Inicio**: Línea 13 (`class OperacionViewModel : ViewModel() {`)
 - **Fin**: Línea 59 (`}`)
 - **Código**:
@@ -607,7 +609,7 @@ class OperacionViewModel : ViewModel() {
 
 ### Bloque 6.3: UI Composable con Observación StateFlow y Gestión de Foco
 - **Ejercicio**: Ud4_Ejemplo2 (Calculadora MVVM)
-- **Archivo**: `Ud4_Ejemplo2-master/app/src/main/java/com/example/ud4_ejemplo2/MainActivity.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo2-master/app/src/main/java/com/example/ud4_ejemplo2/MainActivity.kt`
 - **Inicio**: Línea 45 (`fun Calculadora(`)
 - **Fin**: Línea 109 (`}`)
 - **Código**:
@@ -686,7 +688,7 @@ fun Calculadora(
 
 ### Bloque 7.1: Modelo de Estado UI del Juego
 - **Ejercicio**: Ud4_Ejemplo3 (Juego del Ahorcado)
-- **Archivo**: `Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/modelo/JuegoUIState.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/modelo/JuegoUIState.kt`
 - **Inicio**: Línea 3 (`data class JuegoUIState (`)
 - **Fin**: Línea 9 (`)`)
 - **Código**:
@@ -702,7 +704,7 @@ data class JuegoUIState (
 
 ### Bloque 7.2: ViewModel con Lógica UDF y Reglas del Juego
 - **Ejercicio**: Ud4_Ejemplo3 (Juego del Ahorcado)
-- **Archivo**: `Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/ui/JuegoViewModel.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/ui/JuegoViewModel.kt`
 - **Inicio**: Línea 16 (`class JuegoViewModel : ViewModel(){`)
 - **Fin**: Línea 116 (`}`)
 - **Código**:
@@ -812,7 +814,7 @@ class JuegoViewModel : ViewModel(){
 
 ### Bloque 7.3: Composable Principal de Pantalla del Juego
 - **Ejercicio**: Ud4_Ejemplo3 (Juego del Ahorcado)
-- **Archivo**: `Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/PantallaJuego.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/PantallaJuego.kt`
 - **Inicio**: Línea 38 (`fun PantallaJuego(`)
 - **Fin**: Línea 101 (`}`)
 - **Código**:
@@ -885,7 +887,7 @@ fun PantallaJuego(
 
 ### Bloque 7.4: Layout del Juego con KeyboardActions y Trigger IME
 - **Ejercicio**: Ud4_Ejemplo3 (Juego del Ahorcado)
-- **Archivo**: `Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/PantallaJuego.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/PantallaJuego.kt`
 - **Inicio**: Línea 132 (`fun LayoutJuego(`)
 - **Fin**: Línea 187 (`}`)
 - **Código**:
@@ -950,7 +952,7 @@ fun LayoutJuego(
 
 ### Bloque 7.5: Diálogo Modal de Fin de Juego con AlertDialog
 - **Ejercicio**: Ud4_Ejemplo3 (Juego del Ahorcado)
-- **Archivo**: `Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/PantallaJuego.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejemplo3-master/app/src/main/java/com/example/ud4_ejemplo3/PantallaJuego.kt`
 - **Inicio**: Línea 189 (`fun DialogoFinJuego (`)
 - **Fin**: Línea 217 (`}`)
 - **Código**:
@@ -993,7 +995,7 @@ fun DialogoFinJuego (
 
 ### Bloque 8.1: Jerarquía POO con Herencia y Polimorfismo
 - **Ejercicio**: Ud4_Ejercicio4 (Restaurante DAM)
-- **Archivo**: `Ud4_Ejercicio4-master/app/src/main/java/com/example/ud4_ejercicio/modelo/Producto.kt` (y clases derivadas)
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejercicio4-master/app/src/main/java/com/example/ud4_ejercicio/modelo/Producto.kt` (y clases derivadas)
 - **Inicio**: `open class Producto(`
 - **Fin**: Cierre de las clases de modelo
 - **Código**:
@@ -1026,7 +1028,7 @@ data class Pedido(
 
 ### Bloque 8.2: UIState y ViewModel de Acumulación Reactiva
 - **Ejercicio**: Ud4_Ejercicio4 (Restaurante DAM)
-- **Archivo**: `Ud4_Ejercicio4-master/app/src/main/java/com/example/ud4_ejercicio/ui/RestauranteViewModel.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejercicio4-master/app/src/main/java/com/example/ud4_ejercicio/ui/RestauranteViewModel.kt`
 - **Inicio**: Línea 11 (`class RestauranteViewModel: ViewModel() {`)
 - **Fin**: Línea 24 (`}`)
 - **Código**:
@@ -1053,7 +1055,7 @@ class RestauranteViewModel: ViewModel() {
 
 ### Bloque 8.3: Formulario Interactivo con RadioButtons, Checkbox, Switch y Campos Numéricos
 - **Ejercicio**: Ud4_Ejercicio4 (Restaurante DAM)
-- **Archivo**: `Ud4_Ejercicio4-master/app/src/main/java/com/example/ud4_ejercicio/MainActivity.kt`
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_Ejercicio4-master/app/src/main/java/com/example/ud4_ejercicio/MainActivity.kt`
 - **Inicio**: Línea 91 (`fun Formulario(`)
 - **Fin**: Línea 350 (`}`)
 - **Código**:
@@ -1327,7 +1329,7 @@ fun Formulario(
 
 ### Bloque 9.1: Modelo de Datos y Estado UI Inmutable
 - **Ejercicio**: Ejercicio 2 (Módulos DAM)
-- **Archivo**: `ejercicio2/app/src/main/java/com/example/ud4_ejercicio/modelo/modulo.kt` & `ModuloUIState.kt`
+- **Archivo**: `06_Ejercicios_Adicionales/ejercicio2/app/src/main/java/com/example/ud4_ejercicio/modelo/modulo.kt` & `ModuloUIState.kt`
 - **Inicio**: `data class modulo(...)`
 - **Fin**: Cierre de las clases de modelo
 - **Código**:
@@ -1348,7 +1350,7 @@ data class ModuloUIState(
 
 ### Bloque 9.2: ViewModel de Registro y Acumulación
 - **Ejercicio**: Ejercicio 2 (Módulos DAM)
-- **Archivo**: `ejercicio2/app/src/main/java/com/example/ud4_ejercicio/ui/ModuloViewModel.kt`
+- **Archivo**: `06_Ejercicios_Adicionales/ejercicio2/app/src/main/java/com/example/ud4_ejercicio/ui/ModuloViewModel.kt`
 - **Inicio**: Línea 11 (`class ModuloViewModel: ViewModel() {`)
 - **Fin**: Línea 32 (`}`)
 - **Código**:
@@ -1378,7 +1380,7 @@ class ModuloViewModel: ViewModel() {
 
 ### Bloque 9.3: Formulario, Selección de Asignaturas y LazyColumn Reactiva
 - **Ejercicio**: Ejercicio 2 (Módulos DAM)
-- **Archivo**: `ejercicio2/app/src/main/java/com/example/ud4_ejercicio/MainActivity.kt`
+- **Archivo**: `06_Ejercicios_Adicionales/ejercicio2/app/src/main/java/com/example/ud4_ejercicio/MainActivity.kt`
 - **Inicio**: Línea 80 (`fun Formulario(`)
 - **Fin**: Línea 220 (`}`)
 - **Código**:
@@ -1528,10 +1530,77 @@ fun Formulario(
 
 ---
 
-## Módulo 10: Referencia Rápida de Snippets y Patrones de Examen
+## Módulo 10: Ud4_EjercicioTarea — App Tareas y flujo unidireccional
+*Keywords: Tarea, TareaUIState, TareaViewModel, MutableStateFlow, StateFlow, collectAsState, update, LazyColumn, FocusRequester, UDF*
+
+El objetivo del ejemplo es seguir cómo una acción de Compose llega al `ViewModel`, actualiza el estado y vuelve a la pantalla mediante `StateFlow`. La [explicación interactiva](https://fpcarlosc.github.io/SimuladorAppTareas/) permite observar ese recorrido paso a paso.
+
+### Bloque 10.1: Modelo de Tarea y Estado de Pantalla
+- **Ejercicio**: Ud4_EjercicioTarea (App Tareas)
+- **Archivo**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_EjercicioTarea-master/app/src/main/java/com/example/ud4_ejerciciotarea/modelo/Tarea.kt`
+- **Estado de pantalla**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_EjercicioTarea-master/app/src/main/java/com/example/ud4_ejerciciotarea/modelo/TareaUIState.kt`
+- **Código**:
+```kotlin
+data class Tarea(
+    var titulo: String = "",
+    var descripcion: String = "",
+    var modulo: String = "",
+    var urgente: Boolean = false
+)
+
+data class TareaUIState(
+    var tarea: Tarea = Tarea(),
+    var listaTareas: List<Tarea> = listOf()
+)
+```
+
+### Bloque 10.2: Evento de Compose y Actualización en el ViewModel
+- **Ejercicio**: Ud4_EjercicioTarea (App Tareas)
+- **Archivo UI**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_EjercicioTarea-master/app/src/main/java/com/example/ud4_ejerciciotarea/MainActivity.kt`
+- **Archivo ViewModel**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_EjercicioTarea-master/app/src/main/java/com/example/ud4_ejerciciotarea/ui/TareaViewModel.kt`
+- **Flujo**: `onValueChange` llama a `actualizarTitulo`; el ViewModel copia la tarea en edición y publica un `TareaUIState` nuevo.
+- **Código**:
+```kotlin
+OutlinedTextField(
+    value = uIState.tarea.titulo,
+    onValueChange = { tareaViewModel.actualizarTitulo(it) },
+    singleLine = true
+)
+
+fun actualizarTitulo(titulo_ui: String) {
+    val tarea = _tareaUItate.value.tarea.copy()
+    tarea.titulo = titulo_ui
+    _tareaUItate.update { estadoActual ->
+        estadoActual.copy(tarea = tarea)
+    }
+}
+```
+
+### Bloque 10.3: StateFlow, Recomposición e Inserción en la Lista
+- **Ejercicio**: Ud4_EjercicioTarea (App Tareas)
+- **Archivos**: `05_Unidad4_Arquitectura_y_MVVM/Ud4_EjercicioTarea-master/app/src/main/java/com/example/ud4_ejerciciotarea/MainActivity.kt` y `05_Unidad4_Arquitectura_y_MVVM/Ud4_EjercicioTarea-master/app/src/main/java/com/example/ud4_ejerciciotarea/ui/TareaViewModel.kt`
+- **Código**:
+```kotlin
+val uIState by tareaViewModel.tareaUIState.collectAsState()
+
+fun insertarTarea() {
+    _tareaUItate.update { estadoActual ->
+        estadoActual.copy(
+            tarea = Tarea(),
+            listaTareas = estadoActual.listaTareas + estadoActual.tarea
+        )
+    }
+}
+```
+
+Al pulsar **Insertar**, el ViewModel añade la tarea en edición a `listaTareas` y crea una tarea vacía para el formulario. Como Compose observa `tareaUIState` con `collectAsState()`, recibe la emisión y vuelve a dibujar los campos y la `LazyColumn`.
+
+---
+
+## Módulo 11: Referencia Rápida de Snippets y Patrones de Examen
 *Keywords: Patrones Comunes, Ctrl+F, Boilerplate, ViewModel, LazyColumn, Dialog, RadioButton, TextField*
 
-### 10.1: Patrón UDF (Unidirectional Data Flow) en Jetpack Compose
+### 11.1: Patrón UDF (Unidirectional Data Flow) en Jetpack Compose
 ```kotlin
 // 1. Estado inmutable
 data class MiUIState(val valor: String = "", val cargando: Boolean = false)
@@ -1554,7 +1623,7 @@ fun MiPantalla(viewModel: MiViewModel = viewModel()) {
 }
 ```
 
-### 10.2: Patrón Grupo de RadioButtons Excluyentes
+### 11.2: Patrón Grupo de RadioButtons Excluyentes
 ```kotlin
 val opciones = listOf("Opción A", "Opción B", "Opción C")
 var seleccion by remember { mutableStateOf(opciones[0]) }
@@ -1580,7 +1649,7 @@ Column(modifier = Modifier.selectableGroup()) {
 }
 ```
 
-### 10.3: Patrón LazyColumn con Lista Inmutable y Card
+### 11.3: Patrón LazyColumn con Lista Inmutable y Card
 ```kotlin
 LazyColumn(
     modifier = Modifier.fillMaxSize(),
@@ -1599,7 +1668,7 @@ LazyColumn(
 }
 ```
 
-### 10.4: Patrón Cuadrícula Responsiva con LazyVerticalGrid
+### 11.4: Patrón Cuadrícula Responsiva con LazyVerticalGrid
 ```kotlin
 LazyVerticalGrid(
     columns = GridCells.Adaptive(minSize = 128.dp), // o GridCells.Fixed(2)
@@ -1613,7 +1682,7 @@ LazyVerticalGrid(
 }
 ```
 
-### 10.5: Patrón Diálogo Modal con AlertDialog
+### 11.5: Patrón Diálogo Modal con AlertDialog
 ```kotlin
 var mostrarDialogo by remember { mutableStateOf(false) }
 
@@ -1639,7 +1708,7 @@ if (mostrarDialogo) {
 }
 ```
 
-### 10.6: Patrón Campo Numérico con Auto-Limpieza de Foco
+### 11.6: Patrón Campo Numérico con Auto-Limpieza de Foco
 ```kotlin
 var texto by remember { mutableStateOf("") }
 

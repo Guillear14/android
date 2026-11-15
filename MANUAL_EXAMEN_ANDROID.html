@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIBRO INTERACTIVO DE ANDROID & JETPACK COMPOSE | EXAMEN DAM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-light: #ecfdf5;
+  --accent: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-sidebar: #0f172a;
+  --sidebar-text: #94a3b8;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #10b981;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --code-bg: #1e1e2e;
+  --code-header: #181825;
+  --code-text: #cdd6f4;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'Fira Code', Consolas, monospace;
+}
+
+[data-theme="dark"] {
+  --bg-main: #0b0f19;
+  --bg-card: #131c2e;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #1e293b;
+  --primary-light: #064e3b;
+  --code-bg: #090d16;
+  --code-header: #05080e;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6);
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.15s ease;
+}
+
+#sidebar {
+  width: 310px;
+  background-color: var(--bg-sidebar);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-badge {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.sidebar-title h1 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-title p {
+  font-size: 0.72rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.sidebar-menu {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+}
+
+.menu-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 16px 8px 8px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  margin-bottom: 3px;
+}
+
+.nav-item:hover {
+  background-color: var(--sidebar-hover);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.nav-item.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.nav-item .icon {
+  font-size: 1.1rem;
+  width: 22px;
+  text-align: center;
+}
+
+.nav-item .badge {
+  margin-left: auto;
+  background-color: rgba(255,255,255,0.15);
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+/* Modos especiales de examen en sidebar */
+.nav-item.special-exam-protocol {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+  font-weight: 700;
+}
+.nav-item.special-exam-protocol.active {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  color: white;
+}
+
+.nav-item.special-speed-hub {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(247, 37, 133, 0.15));
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  font-weight: 700;
+}
+.nav-item.special-speed-hub.active {
+  background: linear-gradient(135deg, #ef4444, #f72585);
+  color: white;
+}
+
+.nav-item.special-visual-lab {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: #c4b5fd;
+  font-weight: 700;
+}
+.nav-item.special-visual-lab.active {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  color: white;
+}
+
+#main-wrapper {
+  margin-left: 310px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+#topbar {
+  height: 64px;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-box {
+  position: relative;
+  width: 420px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 9px 16px 9px 40px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  background-color: var(--bg-card);
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.book-badge-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-main);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.btn-speed-hub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #ef4444, #f72585);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(239, 68, 68, 0.3);
+  transition: all 0.2s ease;
+}
+.btn-speed-hub:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.45);
+}
+
+.btn-icon {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.btn-icon:hover {
+  background-color: var(--bg-main);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+#content-area {
+  padding: 32px 36px 80px 36px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.book-chapter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.breadcrumbs .current {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.module-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  letter-spacing: -0.03em;
+}
+
+.module-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pill-btn {
+  padding: 8px 16px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.pill-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.pill-btn.active {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+}
+
+.content-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+}
+
+.content-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.content-card h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.content-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 22px 0 10px 0;
+  color: var(--text-main);
+}
+
+.content-card p {
+  margin-bottom: 14px;
+  color: var(--text-main);
+  font-size: 0.96rem;
+}
+
+/* Didactic Boxes */
+.metafora-box {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.05));
+  border: 1.5px solid #10b981;
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin: 18px 0;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.metafora-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.metafora-title {
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #047857;
+  margin-bottom: 4px;
+}
+[data-theme="dark"] .metafora-title { color: #6ee7b7; }
+
+.alert-box {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  margin: 18px 0;
+  display: flex;
+  gap: 14px;
+  font-size: 0.92rem;
+  border-left: 4px solid transparent;
+}
+
+.alert-box.info {
+  background-color: var(--primary-light);
+  border-left-color: var(--primary);
+  color: var(--text-main);
+}
+
+.alert-box.success {
+  background-color: var(--success-bg);
+  border-left-color: var(--success);
+  color: #065f46;
+}
+[data-theme="dark"] .alert-box.success { color: #a7f3d0; background: #064e3b33; }
+
+.alert-box.warning {
+  background-color: var(--warning-bg);
+  border-left-color: var(--warning);
+  color: #92400e;
+}
+[data-theme="dark"] .alert-box.warning { color: #fde68a; background: #78350f33; }
+
+.alert-box.danger {
+  background-color: var(--danger-bg);
+  border-left-color: var(--danger);
+  color: #991b1b;
+}
+[data-theme="dark"] .alert-box.danger { color: #fca5a5; background: #7f1d1d33; }
+
+/* Protocol cards */
+.protocol-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 20px 0;
+}
+
+.protocol-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  gap: 18px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.protocol-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.protocol-step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.protocol-body { flex: 1; }
+.protocol-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+/* Code blocks */
+.code-wrapper {
+  width: 100%;
+  margin: 16px 0 24px 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.code-header {
+  background-color: var(--code-header);
+  color: #a6adc8;
+  padding: 10px 18px;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.code-lang-tag {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #89b4fa;
+}
+
+.btn-copy {
+  background-color: rgba(255,255,255,0.1);
+  color: #cdd6f4;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-copy:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.code-wrapper pre {
+  margin: 0;
+  padding: 18px 20px;
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  margin: 16px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--primary-light);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+tr:last-child td { border-bottom: 0; }
+
+/* Interactive Quiz */
+.quiz-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  margin-bottom: 20px;
+  background: var(--bg-card);
+}
+
+.quiz-question {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-option {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-main);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-option:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.quiz-option.correct {
+  background-color: var(--success-bg) !important;
+  border-color: var(--success) !important;
+  color: #065f46 !important;
+  font-weight: 700;
+}
+
+.quiz-option.incorrect {
+  background-color: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
+  color: #991b1b !important;
+}
+
+.quiz-explanation {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-main);
+  border-left: 3px solid var(--primary);
+  font-size: 0.88rem;
+  display: none;
+}
+.quiz-explanation.visible { display: block; }
+
+/* Accordion details */
+details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin: 10px 0;
+  background: var(--bg-card);
+  overflow: hidden;
+}
+summary {
+  padding: 14px 18px;
+  background: var(--bg-main);
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+summary:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+details[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+details p, details .details-content {
+  padding: 18px 20px;
+  margin: 0;
+}
+
+/* Pagination */
+.book-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-book-nav {
+  padding: 12px 22px;
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+.btn-book-nav:hover {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+#back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 84px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #fff;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 95;
+}
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Search results area */
+#search-results-area {
+  display: none;
+}
+.search-result-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.search-result-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+.search-result-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+.search-result-snippet {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main-wrapper { margin-left: 0; }
+  #mobile-menu-btn { display: flex !important; }
+  .book-badge-nav { display: none; }
+  .search-box { width: 180px; }
+}
+
+@media print {
+  #sidebar, #topbar, #reading-progress-bar, #back-to-top, .book-pagination, .btn-copy { display: none !important; }
+  #main-wrapper { margin-left: 0 !important; }
+  #content-area { max-width: none; padding: 0; }
+  body { display: block; background: white; color: black; }
+  .content-card { break-inside: avoid; box-shadow: none; }
+  pre, code { white-space: pre-wrap !important; }
+}
+
+    </style>
+</head>
+<body>
+    <div id="reading-progress-bar"></div>
+
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-badge">🤖</div>
+            <div class="sidebar-title">
+                <h1>Libro Interactivo</h1>
+                <p>Android & Compose • 2º DAM</p>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-section-label">⚡ Modo Examen</div>
+            <a class="nav-item special-exam-protocol active" data-module="exam-protocol" onclick="navigateToModule('exam-protocol')">
+                <span class="icon">🎯</span><span>Protocolo de Examen</span><span class="badge" style="background:#10b981; color:white;">0 A 100</span>
+            </a>
+            <a class="nav-item special-speed-hub" data-module="speed-hub" onclick="navigateToModule('speed-hub')">
+                <span class="icon">⚡</span><span>Velocidad de la Luz</span><span class="badge" style="background:#ef4444; color:white;">5 MIN</span>
+            </a>
+            <a class="nav-item special-visual-lab" data-module="visual-lab" onclick="navigateToModule('visual-lab')">
+                <span class="icon">🎨</span><span>Laboratorio Visual</span><span class="badge" style="background:#8b5cf6; color:white;">UDF</span>
+            </a>
+            <a class="nav-item" data-module="ejercicios-clave" onclick="navigateToModule('ejercicios-clave')">
+                <span class="icon">📝</span><span>3 Ejercicios Clave</span><span class="badge" style="background:#3b82f6; color:white;">TOP</span>
+            </a>
+
+            <div class="menu-section-label">Índice de Capítulos</div>
+            <a class="nav-item" data-module="cap-1" onclick="navigateToModule('cap-1')">
+                <span class="icon">📘</span><span>Cap. 1: Fundamentos y Ciclo</span><span class="badge">Ud1</span>
+            </a>
+            <a class="nav-item" data-module="cap-2" onclick="navigateToModule('cap-2')">
+                <span class="icon">📝</span><span>Cap. 2: Formularios y Estado</span><span class="badge">Ud2</span>
+            </a>
+            <a class="nav-item" data-module="cap-3" onclick="navigateToModule('cap-3')">
+                <span class="icon">📋</span><span>Cap. 3: LazyColumn y Tarjetas</span><span class="badge">Ud3</span>
+            </a>
+            <a class="nav-item" data-module="cap-4" onclick="navigateToModule('cap-4')">
+                <span class="icon">🧩</span><span>Cap. 4: Grids y Expansión</span><span class="badge">Ud3</span>
+            </a>
+            <a class="nav-item" data-module="cap-5" onclick="navigateToModule('cap-5')">
+                <span class="icon">🧠</span><span>Cap. 5: Arquitectura MVVM</span><span class="badge">Ud4</span>
+            </a>
+            <a class="nav-item" data-module="cap-6" onclick="navigateToModule('cap-6')">
+                <span class="icon">💬</span><span>Cap. 6: Diálogos y Juegos</span><span class="badge">Ud4</span>
+            </a>
+            <a class="nav-item" data-module="cap-7" onclick="navigateToModule('cap-7')">
+                <span class="icon">🍕</span><span>Cap. 7: POO y Restaurante</span><span class="badge">Ud4</span>
+            </a>
+            <a class="nav-item" data-module="cap-8" onclick="navigateToModule('cap-8')">
+                <span class="icon">🗂️</span><span>Cap. 8: Módulos DAM & Tareas</span><span class="badge">Ud4</span>
+            </a>
+
+            <div class="menu-section-label">Caja de Herramientas</div>
+            <a class="nav-item" data-module="cap-9" onclick="navigateToModule('cap-9')">
+                <span class="icon">📐</span><span>Cap. 9: Catálogo Compose</span><span class="badge">A-Z</span>
+            </a>
+            <a class="nav-item" data-module="cap-10" onclick="navigateToModule('cap-10')">
+                <span class="icon">💾</span><span>Cap. 10: Banco de Snippets</span><span class="badge">Copia</span>
+            </a>
+            <a class="nav-item" data-module="cap-11" onclick="navigateToModule('cap-11')">
+                <span class="icon">🏆</span><span>Cap. 11: Gran Simulacro Quiz</span><span class="badge">Test</span>
+            </a>
+            <a class="nav-item" data-module="cap-12" onclick="navigateToModule('cap-12')">
+                <span class="icon">📖</span><span>Cap. 12: Glosario & Trampas</span><span class="badge">Tips</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div id="main-wrapper">
+
+        <header id="topbar">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <button class="btn-icon" id="mobile-menu-btn" style="display:none;" title="Menú" onclick="toggleSidebar()">☰</button>
+                <div id="book-chapter-badge" class="book-badge-nav">🎯 Protocolo de Examen</div>
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="global-search" placeholder="Buscar en el manual (ej. StateFlow, LazyColumn, copy, Elvis)..." oninput="handleSearch()">
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <a href="./IndiceExamen.html" class="btn-speed-hub" style="background:linear-gradient(135deg, #10b981, #3b82f6); text-decoration:none;" title="Abrir Explorador de Archivos e Índice">
+                    🗂️ Índice de Archivos
+                </a>
+                <button class="btn-speed-hub" onclick="navigateToModule('speed-hub')" title="Ir a Velocidad de la Luz (Ctrl+K)">⚡ Modo Exprés (Ctrl+K)</button>
+                <button class="btn-icon" onclick="goToPreviousModule()" title="Capítulo anterior (Tecla ←)">◀</button>
+                <button class="btn-icon" onclick="goToNextModule()" title="Capítulo siguiente (Tecla →)">▶</button>
+                <button class="btn-icon" onclick="toggleTheme()" title="Cambiar tema claro/oscuro">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <main id="content-area">
+
+        <!-- ==========================================
+             SECCIÓN 1: PROTOCOLO DE EXAMEN (0 A 100)
+             ========================================== -->
+        <section id="exam-protocol" class="chapter-section active" data-chapter="Protocolo de Examen">
+            <div class="book-chapter-tag">⚡ MODO EXAMEN · GUÍA PASO A PASO</div>
+            <div class="breadcrumbs"><span>Modo Examen</span><span>›</span><span class="current">Protocolo de Examen</span></div>
+            <h1 class="module-title">🎯 Protocolo Infalible de Examen: De 0 a 100 en Jetpack Compose</h1>
+            <p class="module-desc">Sigue estrictamente estos 5 pasos en el examen para construir cualquier aplicación Android con Jetpack Compose y MVVM sin dudar ni olvidar dependencias.</p>
+
+            <div class="pills-container">
+                <a class="pill-btn active" href="#protocolo-pasos">5 Pasos Clave</a>
+                <a class="pill-btn" href="#protocolo-reglas">Reglas de Oro</a>
+                <a class="pill-btn" href="#protocolo-trampas">Trampas Habituales</a>
+            </div>
+
+            <div class="metafora-box">
+                <span class="metafora-icon">🏭</span>
+                <div>
+                    <div class="metafora-title">La Metáfora de la Fábrica Inteligente</div>
+                    <p style="margin:0; font-size:0.92rem;">
+                        Piensa en tu app como una fábrica:
+                        <strong>El Modelo</strong> es el plano de la pieza.
+                        <strong>El UIState</strong> es la caja que contiene los productos terminados.
+                        <strong>El ViewModel</strong> es el encargado de la máquina que añade o modifica piezas.
+                        <strong>Compose (la UI)</strong> es el mostrador de la tienda: solo mira la caja y la muestra al cliente. ¡El mostrador nunca fabrica piezas directamente!
+                    </p>
+                </div>
+            </div>
+
+            <div class="protocol-timeline" id="protocolo-pasos">
+                <!-- Paso 1 -->
+                <div class="protocol-card">
+                    <div class="protocol-step-num">1</div>
+                    <div class="protocol-body">
+                        <div class="protocol-title">Paso 1: Define el Modelo de Datos (Data Class)</div>
+                        <p>Crea el archivo en el paquete <code>modelo/</code>. Describe la entidad que manejará la app (ej: un módulo, una tarea, un producto o una persona).</p>
+                        <div class="code-wrapper">
+                            <div class="code-header">
+                                <span class="code-lang-tag">KOTLIN · modelo/modulo.kt</span>
+                                <button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button>
+                            </div>
+                            <pre><code>package com.example.ud4_ejercicio.modelo
+
+// Ficha inmutable que describe una entidad individual
+data class modulo(
+    val nombre: String,
+    val urgente: Boolean,
+    val descripcion: String,
+    val titulo: String,
+    val id: Long = System.currentTimeMillis() // Identificador único para LazyColumn
+)</code></pre>
+                        </div>
+                        <div class="alert-box info"><strong>Consejo Pro:</strong> Siempre usa <code>data class</code> con <code>val</code> (inmutables). No uses <code>var</code> en modelos de datos en Compose.</div>
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="protocol-card">
+                    <div class="protocol-step-num">2</div>
+                    <div class="protocol-body">
+                        <div class="protocol-title">Paso 2: Crea la Caja de Estado (UIState)</div>
+                        <p>El UIState reúne todo lo que la pantalla necesita ver en un solo objeto. Por ejemplo: la lista de elementos y el elemento seleccionado o recién creado.</p>
+                        <div class="code-wrapper">
+                            <div class="code-header">
+                                <span class="code-lang-tag">KOTLIN · modelo/ModuloUIState.kt</span>
+                                <button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button>
+                            </div>
+                            <pre><code>package com.example.ud4_ejercicio.modelo
+
+// Estado que consume la pantalla en cada recomposición
+data class ModuloUIState(
+    val listaModulo: List&lt;modulo&gt; = listOf(),
+    val moduloActual: modulo = modulo("", false, "", "")
+)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="protocol-card">
+                    <div class="protocol-step-num">3</div>
+                    <div class="protocol-body">
+                        <div class="protocol-title">Paso 3: Construye el ViewModel con StateFlow</div>
+                        <p>Declara el <code>MutableStateFlow</code> privado (con guión bajo) y expón el <code>StateFlow</code> público de lectura. Aplica cambios siempre con <code>_modulosUIState.update { it.copy(...) }</code>.</p>
+                        <div class="code-wrapper">
+                            <div class="code-header">
+                                <span class="code-lang-tag">KOTLIN · ui/ModuloViewModel.kt</span>
+                                <button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button>
+                            </div>
+                            <pre><code>package com.example.ud4_ejercicio.ui
+
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import com.example.ud4_ejercicio.modelo.modulo
+import com.example.ud4_ejercicio.modelo.ModuloUIState
+
+class ModuloViewModel : ViewModel() {
+    // 1. Privado: solo el ViewModel puede mutar el flujo
+    private val _modulosUIState = MutableStateFlow(ModuloUIState())
+
+    // 2. Público: la UI solo lee este StateFlow
+    val modulosUIState: StateFlow&lt;ModuloUIState&gt; = _modulosUIState.asStateFlow()
+
+    // 3. Modificaciones inmutables mediante copy()
+    fun updateModulo(nombre: String, urgente: Boolean, descripcion: String, titulo: String) {
+        val nuevo = modulo(nombre, urgente, descripcion, titulo)
+        _modulosUIState.update { estadoActual ->
+            estadoActual.copy(
+                moduloActual = nuevo,
+                listaModulo = estadoActual.listaModulo + nuevo // Inmutable: crea una lista nueva
+            )
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 4 -->
+                <div class="protocol-card">
+                    <div class="protocol-step-num">4</div>
+                    <div class="protocol-body">
+                        <div class="protocol-title">Paso 4: Construye la Interfaz Composable</div>
+                        <p>Conecta la pantalla con <code>collectAsState()</code>. Mantén los inputs temporales en estados locales con <code>remember { mutableStateOf("") }</code> y al pulsar el botón llama al ViewModel.</p>
+                        <div class="code-wrapper">
+                            <div class="code-header">
+                                <span class="code-lang-tag">KOTLIN · MainActivity.kt (Formulario)</span>
+                                <button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button>
+                            </div>
+                            <pre><code>@Composable
+fun Formulario(
+    moduloViewModel: ModuloViewModel = viewModel(),
+    modifier: Modifier = Modifier
+) {
+    // Escucha el StateFlow y se recompone automáticamente
+    val uiState by moduloViewModel.modulosUIState.collectAsState()
+
+    // Estados locales para los campos de texto
+    var titulo by remember { mutableStateOf("") }
+    var descripcion by remember { mutableStateOf("") }
+    var urgente by remember { mutableStateOf(false) }
+
+    Column(modifier = modifier.padding(16.dp)) {
+        OutlinedTextField(
+            value = titulo,
+            onValueChange = { titulo = it },
+            label = { Text("Título") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Button(
+            onClick = {
+                moduloViewModel.updateModulo("PMDM", urgente, descripcion, titulo)
+                titulo = "" // Limpia el formulario
+                descripcion = ""
+            },
+            modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
+        ) {
+            Text("Añadir módulo")
+        }
+
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 16.dp)) {
+            items(uiState.listaModulo, key = { it.id }) { item ->
+                Text("${item.nombre}: ${item.titulo}")
+            }
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 5 -->
+                <div class="protocol-card">
+                    <div class="protocol-step-num">5</div>
+                    <div class="protocol-body">
+                        <div class="protocol-title">Paso 5: Conecta en MainActivity con Scaffold y Theme</div>
+                        <p>En el <code>onCreate()</code> de <code>ComponentActivity</code>, llama a <code>enableEdgeToEdge()</code>, aplica el Theme y usa <code>Scaffold</code> pasando el <code>innerPadding</code> al Composable.</p>
+                        <div class="code-wrapper">
+                            <div class="code-header">
+                                <span class="code-lang-tag">KOTLIN · MainActivity.kt</span>
+                                <button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button>
+                            </div>
+                            <pre><code>class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            Ud4_EjercicioTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Formulario(modifier = Modifier.padding(innerPadding))
+                }
+            }
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card" id="protocolo-reglas" style="margin-top:20px;">
+                <h2>✅ Las 3 Reglas de Oro de Jetpack Compose</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Regla</th><th>Explicación</th><th>Consecuencia si no la cumples</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. UDF (Flujo Unidireccional)</strong></td>
+                                <td>El estado viaja <em>hacia abajo</em> (ViewModel → UI), los eventos viajan <em>hacia arriba</em> (UI → ViewModel).</td>
+                                <td>Código espagueti, estados desincronizados y fallos de recomposición.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Inmutabilidad Estricta</strong></td>
+                                <td>Nunca hagas <code>lista.add()</code>. Haz <code>lista = lista + nuevoElemento</code> con <code>copy()</code>.</td>
+                                <td>Compose no detecta cambios en colecciones mutadas y la pantalla no se actualiza.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. innerPadding Obligatorio</strong></td>
+                                <td>Pasa siempre <code>innerPadding</code> del Scaffold al Composable hijo con <code>Modifier.padding(innerPadding)</code>.</td>
+                                <td>La barra superior del sistema o el notch taparán la mitad de tu primer componente.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 2: VELOCIDAD DE LA LUZ (SPEED HUB)
+             ========================================== -->
+        <section id="speed-hub" class="chapter-section" data-chapter="Velocidad de la Luz">
+            <div class="book-chapter-tag" style="background:linear-gradient(135deg, #ef4444, #f72585);">⚡ MODO EXPRÉS · REPASO EN 5 MINUTOS</div>
+            <div class="breadcrumbs"><span>Modo Examen</span><span>›</span><span class="current">Velocidad de la Luz</span></div>
+            <h1 class="module-title">⚡ Velocidad de la Luz (Speed Hub) — Chuleta de 5 Minutos</h1>
+            <p class="module-desc">Las 7 estructuras y fórmulas de código que DEBES memorizar antes de entrar al examen. Copia y pega con confianza.</p>
+
+            <div class="content-card">
+                <h2>1. Entrada Numérica Segura con Operador Elvis</h2>
+                <p>Convierte el texto introducido por el usuario a <code>Double</code> sin peligro de que la app se cuelgue si escribe letras o lo deja en blanco.</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · PARSING SEGURO</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>// Texto a Double seguro (si es nulo o inválido toma 0.0)
+val precio = precioInput.toDoubleOrNull() ?: 0.0
+
+// Texto a Int seguro
+val cantidad = cantidadInput.toIntOrNull() ?: 1</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>2. Grupo de RadioButtons con Selección Excluyente</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · RADIOBUTTONS</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>val opciones = listOf("AD", "DI", "PMDM")
+var (seleccionado, alSeleccionar) = remember { mutableStateOf(opciones[0]) }
+
+Column(Modifier.selectableGroup()) {
+    opciones.forEach { opcion ->
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .height(48.dp)
+                .selectable(
+                    selected = (opcion == seleccionado),
+                    onClick = { alSeleccionar(opcion) }
+                ),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RadioButton(selected = (opcion == seleccionado), onClick = null)
+            Text(text = opcion, modifier = Modifier.padding(start = 8.dp))
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>3. Checkbox Urgente con Cambio de Color Dinámico</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · CHECKBOX CONDICIONAL</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>var urgente by remember { mutableStateOf(false) }
+
+Row(verticalAlignment = Alignment.CenterVertically) {
+    Checkbox(checked = urgente, onCheckedChange = { urgente = it })
+    Text(
+        text = if (urgente) "¡URGENTE!" else "Normal",
+        color = if (urgente) Color.Red else MaterialTheme.colorScheme.onSurface,
+        fontWeight = if (urgente) FontWeight.Bold else FontWeight.Normal
+    )
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>4. LazyColumn con items y clave única</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · LAZYCOLUMN</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>LazyColumn(
+    modifier = Modifier.fillMaxSize(),
+    verticalArrangement = Arrangement.spacedBy(8.dp)
+) {
+    items(items = uiState.listaModulo, key = { it.id }) { item ->
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = if (item.urgente) Color(0xFFFFEBEE) else MaterialTheme.colorScheme.surface
+            )
+        ) {
+            Text("${item.nombre} - ${item.titulo}", modifier = Modifier.padding(16.dp))
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>5. ViewModel + StateFlow con actualización inmutable</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · STATEFLOW TEMPLATE</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>class MiViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(MiUIState())
+    val uiState: StateFlow&lt;MiUIState&gt; = _uiState.asStateFlow()
+
+    fun agregarElemento(item: Elemento) {
+        _uiState.update { actual ->
+            actual.copy(lista = actual.lista + item)
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>6. Diálogo Modal AlertDialog</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · ALERTDIALOG</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>if (mostrarDialogo) {
+    AlertDialog(
+        onDismissRequest = { mostrarDialogo = false },
+        title = { Text("Confirmación") },
+        text = { Text("¿Deseas reiniciar la aplicación?") },
+        confirmButton = {
+            Button(onClick = {
+                mostrarDialogo = false
+                viewModel.reiniciar()
+            }) { Text("Aceptar") }
+        },
+        dismissButton = {
+            OutlinedButton(onClick = { mostrarDialogo = false }) { Text("Cancelar") }
+        }
+    )
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 3: LABORATORIO VISUAL (UDF)
+             ========================================== -->
+        <section id="visual-lab" class="chapter-section" data-chapter="Laboratorio Visual">
+            <div class="book-chapter-tag" style="background:linear-gradient(135deg, #8b5cf6, #3b82f6);">🎨 ARQUITECTURA VISUAL · UDF EN ACCIÓN</div>
+            <div class="breadcrumbs"><span>Modo Examen</span><span>›</span><span class="current">Laboratorio Visual</span></div>
+            <h1 class="module-title">🎨 Laboratorio Visual: Cómo Funciona el Ciclo de Compose</h1>
+            <p class="module-desc">Comprende cómo los datos fluyen en una sola dirección (UDF) y por qué Compose nunca necesita modificar vistas manualmente como en el antiguo XML.</p>
+
+            <div class="content-card">
+                <h2>Comparativa: Android Tradicional (XML) vs Jetpack Compose</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Aspecto</th><th>Android Antiguo (XML + Imperativo)</th><th>Jetpack Compose (Moderno y Declarativo)</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Definición</strong></td>
+                                <td>Archivos <code>activity_main.xml</code> separados del código Kotlin.</td>
+                                <td>Funciones <code>@Composable</code> escritas 100% en Kotlin.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Búsqueda de Vistas</strong></td>
+                                <td><code>findViewById&lt;TextView&gt;(R.id.miTexto)</code> (propenso a NullPointer).</td>
+                                <td>No existe: el Composable se llama directamente con los parámetros.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Actualizar un Texto</strong></td>
+                                <td><code>miTextView.text = "Nuevo"</code> (modificación manual en caliente).</td>
+                                <td>Cambias el estado y Compose <strong>recompone</strong> la función automáticamente.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Listas</strong></td>
+                                <td><code>RecyclerView</code> + <code>Adapter</code> + <code>ViewHolder</code> (60 líneas de código).</td>
+                                <td><code>LazyColumn { items(lista) { ... } }</code> (solo 5 líneas de código).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>El Flujo Unidireccional de Datos (UDF)</h2>
+                <div style="background:var(--primary-light); border:2px dashed var(--primary); border-radius:var(--radius-md); padding:24px; text-align:center; margin:18px 0;">
+                    <div style="display:inline-flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center;">
+                        <span style="background:var(--bg-card); padding:10px 16px; border-radius:8px; font-weight:800; border:1px solid var(--border);">1. Usuario hace clic en Añadir</span>
+                        <span style="font-size:1.5rem; color:var(--primary);">➔</span>
+                        <span style="background:var(--bg-card); padding:10px 16px; border-radius:8px; font-weight:800; border:1px solid var(--border);">2. Formulario invoca updateModulo()</span>
+                        <span style="font-size:1.5rem; color:var(--primary);">➔</span>
+                        <span style="background:var(--bg-card); padding:10px 16px; border-radius:8px; font-weight:800; border:1px solid var(--border);">3. ViewModel emite nuevo ModuloUIState</span>
+                        <span style="font-size:1.5rem; color:var(--primary);">➔</span>
+                        <span style="background:var(--bg-card); padding:10px 16px; border-radius:8px; font-weight:800; border:1px solid var(--border);">4. collectAsState() detecta el cambio</span>
+                        <span style="font-size:1.5rem; color:var(--primary);">➔</span>
+                        <span style="background:#10b981; color:white; padding:10px 16px; border-radius:8px; font-weight:800;">5. LazyColumn redibuja la lista</span>
+                    </div>
+                </div>
+                <div class="alert-box success">
+                    <strong>¡Magia de la Recomposición!</strong> Compose es lo bastante inteligente como para NO volver a dibujar toda la pantalla: solo redibuja la fila recién añadida en <code>LazyColumn</code>.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 4: 3 EJERCICIOS CLAVE
+             ========================================== -->
+        <section id="ejercicios-clave" class="chapter-section" data-chapter="3 Ejercicios Clave">
+            <div class="book-chapter-tag" style="background:linear-gradient(135deg, #3b82f6, #1d4ed8);">📝 CASOS REALES · PRÁCTICAS EXAMINABLES</div>
+            <div class="breadcrumbs"><span>Modo Examen</span><span>›</span><span class="current">3 Ejercicios Clave</span></div>
+            <h1 class="module-title">📝 Los 3 Ejercicios Clave de Examen Analizados</h1>
+            <p class="module-desc">Estudio en profundidad de los tres proyectos esenciales del curso: Calculadora de IVA, Gestor de Módulos DAM y Gestor de Tareas Reactivas.</p>
+
+            <div class="content-card">
+                <h2>Ejercicio 1: Calculadora de IVA Dinámica (Ud2_Ejercicio1)</h2>
+                <p>Enseña campos controlados, selección excluyente mediante RadioButtons, cálculo reactivo en tiempo real y formateo de divisas.</p>
+                <div class="alert-box info"><strong>Fichero fuente:</strong> <code>Archivoskt/Ud2_Ejercicio1-master/MainActivity.kt</code></div>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud2_Ejercicio1</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>// Cálculo de IVA en Compose puro (sin ViewModel aún)
+fun calcularIva(precio: Double, ivaRadio: Double): Double {
+    return (precio * ivaRadio) / 100.0
+}
+
+@Composable
+fun Ud2Ejercicio2App(modifier: Modifier = Modifier) {
+    var precioInput by remember { mutableStateOf("") }
+    val listaIVA = listOf(21, 10, 3)
+    var (eleccion, onOpcionElegida) = remember { mutableStateOf(listaIVA[0]) }
+    val precio = precioInput.toDoubleOrNull() ?: 0.0
+    val iva = calcularIva(precio, eleccion.toDouble())
+
+    Column(modifier = modifier.padding(16.dp)) {
+        OutlinedTextField(
+            value = precioInput,
+            onValueChange = { precioInput = it },
+            label = { Text("Precio base (€)") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+        Text("IVA calculado: ${NumberFormat.getCurrencyInstance().format(iva)}")
+        Text("Total con IVA: ${NumberFormat.getCurrencyInstance().format(precio + iva)}")
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Ejercicio 2: Gestor de Módulos DAM Urgentes (ejercicio2)</h2>
+                <p>Introduce la arquitectura MVVM completa: modelo <code>modulo</code>, <code>ModuloUIState</code>, <code>ModuloViewModel</code> y renderizado condicional en <code>LazyColumn</code>.</p>
+                <div class="alert-box info"><strong>Ficheros:</strong> <code>Archivoskt/ejercicio2/</code></div>
+                <p>El usuario introduce Asignatura (AD, DI, PMDM), marca si es Urgente mediante un Checkbox, escribe título y descripción, y al pulsar Añadir se acumula en la lista inmutable.</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Ejercicio 3: Gestor de Tareas y Prioridad (Ud4_EjercicioTarea)</h2>
+                <p>App con CRUD completo: añadir tareas, marcar tareas completadas con tachado de texto, borrar tareas y gestionar el estado reactivo con <code>StateFlow</code>.</p>
+                <div class="alert-box info"><strong>Ficheros:</strong> <code>Archivoskt/Ud4_EjercicioTarea-master/</code></div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             CAPÍTULO 1: FUNDAMENTOS Y CICLO DE VIDA
+             ========================================== -->
+        <section id="cap-1" class="chapter-section" data-chapter="Cap. 1: Fundamentos y Ciclo">
+            <div class="book-chapter-tag">CAPÍTULO 1 · ANDROID STUDIO, KOTLIN Y CICLO DE VIDA</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 1</span></div>
+            <h1 class="module-title">📘 Fundamentos de Android, Kotlin y Ciclo de Vida de la Activity</h1>
+            <p class="module-desc">Comprende la estructura de un proyecto Android moderno, el ciclo de vida de una ComponentActivity y cómo se inicializa Jetpack Compose.</p>
+
+            <div class="content-card">
+                <h2>El Ciclo de Vida de una Activity</h2>
+                <p>Una <code>ComponentActivity</code> pasa por varios estados a lo largo de su existencia: desde que el usuario pulsa el icono de la app hasta que la destruye o cambia a otra tarea.</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Método</th><th>Momento en que se ejecuta</th><th>Uso habitual de examen</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>onCreate()</code></td><td>La Activity se crea en memoria por primera vez.</td><td>Llamar a <code>enableEdgeToEdge()</code> e iniciar <code>setContent { ... }</code>.</td></tr>
+                            <tr><td><code>onStart()</code></td><td>La Activity se vuelve visible para el usuario.</td><td>Iniciar componentes que solo deben funcionar en pantalla.</td></tr>
+                            <tr><td><code>onResume()</code></td><td>La Activity tiene el foco y puede recibir toques del usuario.</td><td>Reanudar animaciones, sensores o cámaras.</td></tr>
+                            <tr><td><code>onPause()</code></td><td>La Activity pierde el foco (ej: aparece un diálogo o llamada).</td><td>Pausar procesos que consuman batería o CPU.</td></tr>
+                            <tr><td><code>onStop()</code></td><td>La Activity ya no es visible para el usuario.</td><td>Guardar datos temporales en disco o base de datos.</td></tr>
+                            <tr><td><code>onDestroy()</code></td><td>La Activity se destruye completamente.</td><td>Liberar recursos y desuscribir observables.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud4_Ejemplo1 · CICLO DE VIDA CON LOGCAT</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>package com.example.ud4_ejemplo1
+
+import android.os.Bundle
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.Text
+
+private const val TAG = "CicloDeVida"
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate() -> Inicializando Compose")
+        enableEdgeToEdge()
+        setContent {
+            Text("¡Hola Mundo en Jetpack Compose!")
+        }
+    }
+
+    override fun onStart() { super.onStart(); Log.d(TAG, "onStart()") }
+    override fun onResume() { super.onResume(); Log.d(TAG, "onResume() -> App lista para interactuar") }
+    override fun onPause() { super.onPause(); Log.d(TAG, "onPause()") }
+    override fun onStop() { super.onStop(); Log.d(TAG, "onStop()") }
+    override fun onDestroy() { super.onDestroy(); Log.d(TAG, "onDestroy()") }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>El Scaffold y los Modifiers Esenciales</h2>
+                <p><code>Scaffold</code> proporciona la estructura básica según las guías de Material Design 3. Los <code>Modifier</code> permiten configurar aspecto, padding y comportamiento.</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Modifier</th><th>Para qué sirve</th><th>Ejemplo</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>fillMaxSize()</code></td><td>Ocupa todo el alto y ancho disponible.</td><td><code>Modifier.fillMaxSize()</code></td></tr>
+                            <tr><td><code>fillMaxWidth()</code></td><td>Ocupa todo el ancho de su contenedor.</td><td><code>Modifier.fillMaxWidth()</code></td></tr>
+                            <tr><td><code>padding()</code></td><td>Añade márgenes interiores o exteriores.</td><td><code>Modifier.padding(16.dp)</code></td></tr>
+                            <tr><td><code>weight(1f)</code></td><td>Reparte el espacio proporcionalmente en Row o Column.</td><td><code>Modifier.weight(1f)</code></td></tr>
+                            <tr><td><code>clickable { }</code></td><td>Convierte cualquier componente en interactivo.</td><td><code>Modifier.clickable { doSomething() }</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 2: FORMULARIOS Y ESTADO LOCAL (UD2)
+             ========================================== -->
+        <section id="cap-2" class="chapter-section" data-chapter="Cap. 2: Formularios y Estado">
+            <div class="book-chapter-tag">CAPÍTULO 2 · ESTADO REACTIVO Y FORMULARIOS (UD2)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 2</span></div>
+            <h1 class="module-title">📝 Formularios, Entradas de Texto y Estado Local con remember</h1>
+            <p class="module-desc">Aprende a capturar datos del usuario: OutlinedTextField, RadioButtons, Checkboxes, conversiones seguras con el operador Elvis y formateo de monedas.</p>
+
+            <div class="content-card">
+                <h2>¿Qué es el Estado en Compose?</h2>
+                <div class="metafora-box">
+                    <span class="metafora-icon">🧠</span>
+                    <div>
+                        <div class="metafora-title">La Memoria de un Composable</div>
+                        <p style="margin:0; font-size:0.92rem;">
+                            Las funciones <code>@Composable</code> se ejecutan una y otra vez (se <em>recomponen</em>). Si creas una variable normal como <code>var texto = ""</code>, cada vez que la pantalla se vuelva a dibujar, esa variable volverá a valer <code>""</code>.
+                            Por eso usamos <code>remember { mutableStateOf("") }</code>: le dice a Compose "¡acuérdate de este valor aunque vuelvas a dibujar la función!".
+                        </p>
+                    </div>
+                </div>
+
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · DECLARACIÓN DE ESTADO LOCAL</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>// Forma recomendada con delegado 'by' (requiere import androidx.compose.runtime.getValue y setValue)
+var textoInput by remember { mutableStateOf("") }
+var estaMarcado by remember { mutableStateOf(false) }
+
+// rememberSaveable conserva los datos si el usuario gira el móvil de vertical a horizontal
+var textoPersistente by rememberSaveable { mutableStateOf("") }</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Formulario Completo con Controles Variados</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · FORMULARIO DE ENTRADA</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>@Composable
+fun MiFormulario() {
+    var precioInput by remember { mutableStateOf("") }
+    var conDescuento by remember { mutableStateOf(false) }
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        OutlinedTextField(
+            value = precioInput,
+            onValueChange = { precioInput = it },
+            label = { Text("Precio (€)") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(top = 12.dp)
+        ) {
+            Checkbox(checked = conDescuento, onCheckedChange = { conDescuento = it })
+            Text("Aplicar 10% de descuento")
+        }
+
+        // Conversión segura sin excepciones
+        val precio = precioInput.toDoubleOrNull() ?: 0.0
+        val final = if (conDescuento) precio * 0.90 else precio
+
+        Text(
+            text = "Total a pagar: ${NumberFormat.getCurrencyInstance().format(final)}",
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 16.dp)
+        )
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 3: LAZYCOLUMN Y TARJETAS (UD3)
+             ========================================== -->
+        <section id="cap-3" class="chapter-section" data-chapter="Cap. 3: LazyColumn y Tarjetas">
+            <div class="book-chapter-tag">CAPÍTULO 3 · COLECCIONES EFICIENTES (UD3)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 3</span></div>
+            <h1 class="module-title">📋 Listas Eficientes con LazyColumn y Tarjetas Card</h1>
+            <p class="module-desc">Renderiza cientos o miles de elementos de forma ultrarrápida. Uso de items(), recursos tipados (@StringRes y @DrawableRes), y elevación de clics con callbacks.</p>
+
+            <div class="content-card">
+                <h2>¿Por qué LazyColumn y no Column?</h2>
+                <p><code>Column</code> crea y mide todos sus elementos de golpe, aunque no quepan en pantalla. Si tienes 500 elementos, la app se quedará sin memoria (OutOfMemory). En cambio, <strong>LazyColumn</strong> solo dibuja los elementos que el usuario está viendo en ese momento exacto.</p>
+                <div class="alert-box success"><strong>Regla:</strong> Para listas de tamaño variable o superior a 5 elementos, usa SIEMPRE <code>LazyColumn</code>.</div>
+            </div>
+
+            <div class="content-card">
+                <h2>Modelo Bandera y Lista con Tarjetas</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud3_Ejemplo1 · LISTA DE BANDERAS</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>// 1. Modelo con anotaciones de recursos de Android
+data class Bandera(
+    @StringRes val nombre: Int,
+    @DrawableRes val imagen: Int
+)
+
+// 2. Lista de datos de ejemplo
+object Datos {
+    fun cargarBanderas(): List&lt;Bandera&gt; {
+        return listOf(
+            Bandera(R.string.espana, R.drawable.espana),
+            Bandera(R.string.francia, R.drawable.francia),
+            Bandera(R.string.italia, R.drawable.italia)
+        )
+    }
+}
+
+// 3. Composable con LazyColumn
+@Composable
+fun ListaBanderas(banderas: List&lt;Bandera&gt;, onItemClick: (Bandera) -> Unit) {
+    LazyColumn(
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(items = banderas, key = { it.nombre }) { bandera ->
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onItemClick(bandera) },
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = bandera.imagen),
+                        contentDescription = stringResource(id = bandera.nombre),
+                        modifier = Modifier.size(64.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        text = stringResource(id = bandera.nombre),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+            }
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 4: GRIDS Y EXPANSIÓN CONDICIONAL (UD3)
+             ========================================== -->
+        <section id="cap-4" class="chapter-section" data-chapter="Cap. 4: Grids y Expansión">
+            <div class="book-chapter-tag">CAPÍTULO 4 · INTERFACES DINÁMICAS (UD3 & EXÁMENES)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 4</span></div>
+            <h1 class="module-title">🧩 Cuadrículas con LazyVerticalGrid y Tarjetas Expandibles</h1>
+            <p class="module-desc">Patrones frecuentes de examen: creación de catálogos en cuadrícula de dos columnas, tarjetas que se despliegan al pulsar un icono y botones flotantes (FAB).</p>
+
+            <div class="content-card">
+                <h2>Cuadrícula de 2 Columnas con LazyVerticalGrid</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · examen-personas · LAZYVERTICALGRID</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>@Composable
+fun PantallaListadoGrid(
+    personas: List&lt;Persona&gt;,
+    onPersonaClick: (Persona) -> Unit,
+    onAddClick: () -> Unit
+) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddClick) {
+                Text("+", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+    ) { innerPadding ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            contentPadding = PaddingValues(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(personas) { persona ->
+                Card(
+                    modifier = Modifier.fillMaxWidth().clickable { onPersonaClick(persona) }
+                ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Text(persona.nombre, fontWeight = FontWeight.Bold)
+                        Text(persona.tipo, style = MaterialTheme.typography.bodySmall)
+                    }
+                }
+            }
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Tarjeta Expandible con Animación de Flecha</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud3_Ejemplo3 · CARD EXPANDIBLE</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>@Composable
+fun ItemExpandible(titulo: String, descripcion: String) {
+    var abierto by remember { mutableStateOf(false) }
+
+    Card(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = titulo, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                IconButton(onClick = { abierto = !abierto }) {
+                    Icon(
+                        painter = painterResource(
+                            if (abierto) R.drawable.expand_less else R.drawable.expand_more
+                        ),
+                        contentDescription = "Expandir o colapsar"
+                    )
+                }
+            }
+            if (abierto) {
+                Spacer(Modifier.height(8.dp))
+                HorizontalDivider()
+                Spacer(Modifier.height(8.dp))
+                Text(text = descripcion, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             CAPÍTULO 5: ARQUITECTURA MVVM Y STATEFLOW
+             ========================================== -->
+        <section id="cap-5" class="chapter-section" data-chapter="Cap. 5: Arquitectura MVVM">
+            <div class="book-chapter-tag">CAPÍTULO 5 · ARQUITECTURA MODERNA MVVM (UD4)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 5</span></div>
+            <h1 class="module-title">🧠 Arquitectura MVVM y Flujo Unidireccional con StateFlow</h1>
+            <p class="module-desc">Domina la separación en tres capas: Modelo, Vista y ViewModel. Manejo de StateFlow, MutableStateFlow, asStateFlow(), update { copy() } y collectAsState().</p>
+
+            <div class="content-card">
+                <h2>¿Por qué MVVM? El Problema de Sobrevivir a Giros</h2>
+                <p>Si guardas datos importantes dentro de una Activity o Composable, cuando el usuario gira el teléfono móvil o entra en segundo plano, la Activity se <strong>destruye y se vuelve a crear</strong>. El <code>ViewModel</code> vive fuera del ciclo de vida de la Activity: ¡sus datos no se borran al rotar la pantalla!</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Elemento</th><th>Tipo</th><th>Visibilidad</th><th>Propósito</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>_uiState</code></td><td><code>MutableStateFlow&lt;MiUIState&gt;</code></td><td><code>private val</code></td><td>Contenedor interno editable solo por el ViewModel.</td></tr>
+                            <tr><td><code>uiState</code></td><td><code>StateFlow&lt;MiUIState&gt;</code></td><td><code>val</code> (público)</td><td>Flujo de solo lectura expuesto con <code>asStateFlow()</code> a Compose.</td></tr>
+                            <tr><td><code>collectAsState()</code></td><td>Delegado Compose</td><td>En la función <code>@Composable</code></td><td>Transforma el StateFlow en un Estado que provoca recomposición.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Caso Práctico: Calculadora Reactiva MVVM (Ud4_Ejemplo2)</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud4_Ejemplo2 · OperacionViewModel.kt</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>package com.example.ud4_ejemplo2.ui
+
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import com.example.ud4_ejemplo2.modelo.OperacionUIState
+
+class OperacionViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(OperacionUIState())
+    val uiState: StateFlow&lt;OperacionUIState&gt; = _uiState.asStateFlow()
+
+    fun actualizarOperando1(nuevo: String) {
+        val n1 = nuevo.toIntOrNull() ?: 0
+        _uiState.update { actual ->
+            val n2 = actual.operando2.toIntOrNull() ?: 0
+            actual.copy(operando1 = nuevo, resultado = n1 + n2)
+        }
+    }
+
+    fun actualizarOperando2(nuevo: String) {
+        val n2 = nuevo.toIntOrNull() ?: 0
+        _uiState.update { actual ->
+            val n1 = actual.operando1.toIntOrNull() ?: 0
+            actual.copy(operando2 = nuevo, resultado = n1 + n2)
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 6: DIÁLOGOS Y JUEGOS INTERACTIVOS (UD4)
+             ========================================== -->
+        <section id="cap-6" class="chapter-section" data-chapter="Cap. 6: Diálogos y Juegos">
+            <div class="book-chapter-tag">CAPÍTULO 6 · DIÁLOGOS Y LÓGICA DE JUEGO (UD4)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 6</span></div>
+            <h1 class="module-title">💬 Diálogos Modales (AlertDialog) y Juegos Interactivos</h1>
+            <p class="module-desc">Estudio del proyecto del Ahorcado (Ud4_Ejemplo3): AlertDialog para victoria o derrota, teclado con KeyboardActions, gestión de vidas y reinicio de partida.</p>
+
+            <div class="content-card">
+                <h2>El AlertDialog en Compose</h2>
+                <p>En Jetpack Compose, los diálogos no se abren con <code>dialog.show()</code>. Simplemente se declaran dentro de un condicional <code>if (mostrarDialogo)</code>. Si la variable es verdadera, Compose dibuja el diálogo sobre la pantalla.</p>
+
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud4_Ejemplo3 · DIÁLOGO DE FIN DE JUEGO</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>@Composable
+fun DialogoFinJuego(
+    haGanado: Boolean,
+    puntuacion: Int,
+    onReiniciar: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = { /* No cerrar al pulsar fuera */ },
+        title = {
+            Text(if (haGanado) "🎉 ¡ENHORABUENA!" else "💀 FIN DE LA PARTIDA")
+        },
+        text = {
+            Text("Puntuación acumulada: $puntuacion puntos.\n¿Deseas jugar otra ronda?")
+        },
+        confirmButton = {
+            Button(onClick = onReiniciar) {
+                Text("Volver a jugar")
+            }
+        }
+    )
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 7: POO AVANZADA Y RESTAURANTE (UD4)
+             ========================================== -->
+        <section id="cap-7" class="chapter-section" data-chapter="Cap. 7: POO y Restaurante">
+            <div class="book-chapter-tag">CAPÍTULO 7 · POO Y HERENCIA (UD4)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 7</span></div>
+            <h1 class="module-title">🍕 POO Avanzada, Herencia y Restaurante DAM (Ud4_Ejercicio4)</h1>
+            <p class="module-desc">Aprende a estructurar un modelo de clases con herencia en Kotlin: open class, métodos polimórficos de cálculo de importe, LocalDate y carritos de compra.</p>
+
+            <div class="content-card">
+                <h2>Jerarquía de Clases: open class y subclases</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud4_Ejercicio4 · MODELOS POO</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>// 1. Clase base abierta a herencia
+open class Producto(
+    val nombre: String,
+    val precioBase: Double
+) {
+    open fun calcularPrecio(): Double = precioBase
+}
+
+// 2. Subclase Hamburguesa con suplementos
+class Hamburguesa(
+    nombre: String,
+    precioBase: Double,
+    val quesoExtra: Boolean,
+    val bacon: Boolean
+) : Producto(nombre, precioBase) {
+    override fun calcularPrecio(): Double {
+        var suplemento = 0.0
+        if (quesoExtra) suplemento += 1.50
+        if (bacon) suplemento += 2.00
+        return precioBase + suplemento
+    }
+}
+
+// 3. Subclase Pizza con selección de tamaño
+class Pizza(
+    nombre: String,
+    precioBase: Double,
+    val esFamiliar: Boolean
+) : Producto(nombre, precioBase) {
+    override fun calcularPrecio(): Double {
+        return if (esFamiliar) precioBase * 1.5 else precioBase
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Carrito de Pedido con Fecha LocalDate</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · Ud4_Ejercicio4 · Pedido.kt</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>import java.time.LocalDate
+
+data class Pedido(
+    val id: Long = System.currentTimeMillis(),
+    val fecha: LocalDate = LocalDate.now(),
+    val productos: List&lt;Producto&gt; = listOf()
+) {
+    val total: Double
+        get() = productos.sumOf { it.calcularPrecio() }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 8: GESTOR DE MÓDULOS DAM Y TAREAS
+             ========================================== -->
+        <section id="cap-8" class="chapter-section" data-chapter="Cap. 8: Módulos DAM & Tareas">
+            <div class="book-chapter-tag">CAPÍTULO 8 · PROYECTOS INTEGRALES (UD4)</div>
+            <div class="breadcrumbs"><span>Índice de Capítulos</span><span>›</span><span class="current">Capítulo 8</span></div>
+            <h1 class="module-title">🗂️ Gestor de Módulos DAM (ejercicio2) y Gestor de Tareas</h1>
+            <p class="module-desc">Disección completa del proyecto estrella de examen: cómo enlazar un formulario con validación, lista reactiva con urgencia visual y eliminación de elementos.</p>
+
+            <div class="content-card">
+                <h2>Anatomía de los 4 Archivos de ejercicio2</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Archivo</th><th>Función exacta</th><th>Líneas clave</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>modelo/modulo.kt</code></td><td>Define los campos: <code>nombre</code>, <code>urgente</code>, <code>descripcion</code>, <code>titulo</code>.</td><td><code>data class modulo(...)</code></td></tr>
+                            <tr><td><code>modelo/ModuloUIState.kt</code></td><td>Guarda <code>listaModulo: List&lt;modulo&gt;</code> y <code>moduloActual</code>.</td><td>Caja observable por la pantalla.</td></tr>
+                            <tr><td><code>ui/ModuloViewModel.kt</code></td><td>Recibe los 4 datos y hace <code>_modulosUIState.update { it.copy(...) }</code>.</td><td>Gestor de la lógica de negocio.</td></tr>
+                            <tr><td><code>MainActivity.kt</code></td><td>Dibuja RadioButtons, Checkbox, TextFields y el <code>LazyColumn</code>.</td><td>Entrada de usuario y visualización.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · ejercicio2 · BOTÓN AÑADIR Y LAZYCOLUMN</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>// Dentro de Formulario en MainActivity.kt:
+Button(
+    onClick = {
+        moduloViewModel.updateModulo(
+            eleccAsignatura,
+            urgencia,
+            descripcion,
+            titulo
+        )
+        // Limpiamos los campos tras añadir
+        titulo = ""
+        descripcion = ""
+        urgencia = false
+    },
+    modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp)
+) {
+    Text("Añadir Módulo")
+}
+
+LazyColumn(
+    modifier = Modifier.fillMaxWidth(),
+    verticalArrangement = Arrangement.spacedBy(8.dp)
+) {
+    items(uIState.listaModulo) { item ->
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = if (item.urgente) Color(0xFFFFCDD2) else MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            Column(modifier = Modifier.padding(14.dp)) {
+                Text(
+                    text = "${item.nombre}: ${item.titulo}",
+                    fontWeight = FontWeight.Bold,
+                    color = if (item.urgente) Color(0xFFB71C1C) else MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                if (item.descripcion.isNotBlank()) {
+                    Text(item.descripcion, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             CAPÍTULO 9: CATÁLOGO DE COMPONENTES A-Z
+             ========================================== -->
+        <section id="cap-9" class="chapter-section" data-chapter="Cap. 9: Catálogo Compose">
+            <div class="book-chapter-tag">CAPÍTULO 9 · DICCIONARIO TÉCNICO COMPOSE</div>
+            <div class="breadcrumbs"><span>Caja de Herramientas</span><span>›</span><span class="current">Capítulo 9</span></div>
+            <h1 class="module-title">📐 Catálogo Completo de Componentes Compose (A-Z)</h1>
+            <p class="module-desc">Referencia rápida con los 15 componentes más utilizados en los exámenes de DAM, sus propiedades obligatorias y casos de uso.</p>
+
+            <div class="content-card">
+                <h2>Tabla Maestra de Componentes de Examen</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Componente</th><th>Propiedades Clave</th><th>Para qué se usa en examen</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>AlertDialog</code></td><td><code>onDismissRequest, confirmButton, title, text</code></td><td>Mensaje modal al terminar el juego o confirmar borrado.</td></tr>
+                            <tr><td><code>Button</code></td><td><code>onClick, modifier, content</code></td><td>Botón estándar para añadir elementos o realizar cálculos.</td></tr>
+                            <tr><td><code>Card</code></td><td><code>modifier, shape, elevation, colors</code></td><td>Contenedor elegante para filas de LazyColumn o ítems de listas.</td></tr>
+                            <tr><td><code>Checkbox</code></td><td><code>checked, onCheckedChange</code></td><td>Casillas booleanas (ej: marcar urgente, aplicar descuento).</td></tr>
+                            <tr><td><code>Column</code></td><td><code>modifier, verticalArrangement, horizontalAlignment</code></td><td>Disposición vertical de elementos (apilar hacia abajo).</td></tr>
+                            <tr><td><code>FloatingActionButton</code></td><td><code>onClick, content</code></td><td>Botón flotante '+' anclado al slot de Scaffold.</td></tr>
+                            <tr><td><code>HorizontalDivider</code></td><td><code>modifier, thickness, color</code></td><td>Línea separadora horizontal sutil entre bloques.</td></tr>
+                            <tr><td><code>IconButton</code></td><td><code>onClick, content = { Icon(...) }</code></td><td>Botón pequeño con icono (ej: expandir/colapsar tarjeta).</td></tr>
+                            <tr><td><code>Image</code></td><td><code>painter, contentDescription, modifier</code></td><td>Cargar imágenes locales desde <code>R.drawable</code>.</td></tr>
+                            <tr><td><code>LazyColumn</code></td><td><code>modifier, contentPadding, verticalArrangement</code></td><td>Lista desplazable vertical de alto rendimiento.</td></tr>
+                            <tr><td><code>LazyVerticalGrid</code></td><td><code>columns = GridCells.Fixed(2)</code></td><td>Cuadrícula de 2 columnas para catálogos o personas.</td></tr>
+                            <tr><td><code>OutlinedTextField</code></td><td><code>value, onValueChange, label, keyboardOptions</code></td><td>Campo de texto con borde elegante para títulos y precios.</td></tr>
+                            <tr><td><code>RadioButton</code></td><td><code>selected, onClick</code></td><td>Opciones excluyentes (asignaturas, tamaños de pizza).</td></tr>
+                            <tr><td><code>Row</code></td><td><code>modifier, horizontalArrangement, verticalAlignment</code></td><td>Disposición horizontal de elementos (alinear de izquierda a derecha).</td></tr>
+                            <tr><td><code>Scaffold</code></td><td><code>modifier, topBar, floatingActionButton, content</code></td><td>Estructura básica de la pantalla con soporte para innerPadding.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 10: BANCO MAESTRO DE SNIPPETS
+             ========================================== -->
+        <section id="cap-10" class="chapter-section" data-chapter="Cap. 10: Banco de Snippets">
+            <div class="book-chapter-tag">CAPÍTULO 10 · COPIA Y PEGA TÉCNICO</div>
+            <div class="breadcrumbs"><span>Caja de Herramientas</span><span>›</span><span class="current">Capítulo 10</span></div>
+            <h1 class="module-title">💾 Banco Maestro de Snippets de Examen (Copia Rápida)</h1>
+            <p class="module-desc">Bloques completos de código verificados y listos para copiar con un solo clic durante el examen.</p>
+
+            <div class="content-card">
+                <h2>Snippet: Modifiers para Área Segura y Bordes Redondeados</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · MODIFIERS ÚTILES</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>Modifier
+    .fillMaxWidth()
+    .padding(horizontal = 16.dp, vertical = 8.dp)
+    .clip(RoundedCornerShape(12.dp))
+    .background(MaterialTheme.colorScheme.surface)
+    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12.dp))</code></pre>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Snippet: Formateo de Moneda Localizada</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang-tag">KOTLIN · FORMATEO DE MONEDA</span><button type="button" class="btn-copy" onclick="copyCodeBlock(this)">Copiar</button></div>
+                    <pre><code>import java.text.NumberFormat
+
+fun Double.aMoneda(): String {
+    return NumberFormat.getCurrencyInstance().format(this)
+}
+
+// Uso:
+Text(text = "Total: ${total.aMoneda()}") // Escribe "45,50 €"</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 11: GRAN SIMULACRO & QUIZ
+             ========================================== -->
+        <section id="cap-11" class="chapter-section" data-chapter="Cap. 11: Gran Simulacro Quiz">
+            <div class="book-chapter-tag">CAPÍTULO 11 · AUTOEVALUACIÓN INTERACTIVA</div>
+            <div class="breadcrumbs"><span>Caja de Herramientas</span><span>›</span><span class="current">Capítulo 11</span></div>
+            <h1 class="module-title">🏆 Gran Simulacro de Examen & Quiz Interactivo</h1>
+            <p class="module-desc">Pon a prueba tus conocimientos antes del examen real. Pulsa sobre las opciones y comprueba inmediatamente si has acertado con la explicación detallada.</p>
+
+            <!-- Pregunta 1 -->
+            <div class="quiz-card" data-quiz="1">
+                <div class="quiz-question">1. ¿Por qué usamos mutableStateOf junto con remember en Compose?</div>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'Sin remember, cada vez que la función se recompone la variable volvería a su valor inicial perdiendo los datos.')">Para guardar los datos en una base de datos SQLite.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, true, '¡Correcto! mutableStateOf notifica a Compose que debe recomponer, y remember conserva el valor durante esas recomposiciones.')">Para avisar a Compose del cambio y conservar el valor en recomposiciones.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'remember no tiene relación con hilos secundarios; para eso están las Corrutinas.')">Para ejecutar la función en un hilo secundario sin congelar la UI.</button>
+                </div>
+                <div class="quiz-explanation"></div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="quiz-card" data-quiz="2">
+                <div class="quiz-question">2. En arquitectura MVVM, ¿por qué _uiState es privado y uiState es público?</div>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, true, '¡Exacto! El patrón UDF exige que la pantalla solo pueda leer el estado; las modificaciones deben pasar siempre por los métodos del ViewModel.')">Para que la pantalla solo pueda leer el estado y no modificarlo arbitrariamente.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'El compilador de Kotlin permite que las variables públicas sean StateFlow sin problema.')">Porque Kotlin prohíbe que los StateFlow sean públicos.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'No tiene relación con el rendimiento de la memoria.')">Para ahorrar memoria RAM en el dispositivo.</button>
+                </div>
+                <div class="quiz-explanation"></div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="quiz-card" data-quiz="3">
+                <div class="quiz-question">3. ¿Qué hace la función copy() en una data class?</div>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'copy() no clona en disco; crea una nueva instancia en memoria RAM.')">Guarda un duplicado del objeto en el almacenamiento del teléfono.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, true, '¡Correcto! copy() permite respetar la inmutabilidad creando un objeto nuevo cambiando solo los campos que necesitas.')">Crea una nueva instancia idéntica pudiendo modificar algunos de sus atributos.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'copy() no borra nada; genera un nuevo objeto.')">Borra la lista anterior y la sustituye por una vacía.</button>
+                </div>
+                <div class="quiz-explanation"></div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="quiz-card" data-quiz="4">
+                <div class="quiz-question">4. ¿Cuál es la ventaja de pasar key = { it.id } dentro de items() en LazyColumn?</div>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, true, '¡Muy bien! Una clave única ayuda a Compose a saber exactamente qué elemento se añadió o borró sin redibujar toda la lista.')">Permite a Compose optimizar las recomposiciones identificando cada ítem de forma única.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'key no ordena alfabéticamente; para eso se usa sortedBy().')">Ordena la lista alfabéticamente de forma automática.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'LazyColumn funciona aunque no pongas key, pero es menos eficiente.')">Es obligatorio para que la app compile sin errores.</button>
+                </div>
+                <div class="quiz-explanation"></div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="quiz-card" data-quiz="5">
+                <div class="quiz-question">5. ¿Qué ocurre con un ViewModel cuando el usuario rota la pantalla del móvil?</div>
+                <div class="quiz-options">
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'La Activity sí se destruye, pero el ViewModel sobrevive en memoria.')">Se destruye junto con la Activity y se pierden todos los datos.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, true, '¡Correcto! Es la gran ventaja del ViewModel: retiene sus datos durante cambios de configuración como rotaciones.')">Sobrevive en memoria y la nueva Activity se vuelve a conectar a él conservando los datos.</button>
+                    <button type="button" class="quiz-option" onclick="checkQuiz(this, false, 'El ViewModel no lanza ninguna excepción.')">Lanza una excepción de ciclo de vida si no está guardado en Room.</button>
+                </div>
+                <div class="quiz-explanation"></div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CAPÍTULO 12: GLOSARIO Y TRAMPAS TÍPICAS
+             ========================================== -->
+        <section id="cap-12" class="chapter-section" data-chapter="Cap. 12: Glosario & Trampas">
+            <div class="book-chapter-tag">CAPÍTULO 12 · RESUMEN FINAL</div>
+            <div class="breadcrumbs"><span>Caja de Herramientas</span><span>›</span><span class="current">Capítulo 12</span></div>
+            <h1 class="module-title">📖 Glosario Técnico y las 10 Trampas Mortales de Examen</h1>
+            <p class="module-desc">Los errores que más suspensos provocan en los exámenes de 2º DAM de Android y cómo esquivarlos limpiamente.</p>
+
+            <div class="content-card">
+                <h2>⚠️ Las 10 Trampas Mortales de Examen</h2>
+                <div class="protocol-timeline">
+                    <div class="protocol-card" style="border-left:5px solid #ef4444;">
+                        <div><strong style="color:#ef4444;">Trampa 1:</strong> Olvidar <code>by remember</code> al declarar estados locales (escribir solo <code>val texto = mutableStateOf("")</code>). Resultado: tienes que escribir <code>texto.value</code> en todos lados.</div>
+                    </div>
+                    <div class="protocol-card" style="border-left:5px solid #ef4444;">
+                        <div><strong style="color:#ef4444;">Trampa 2:</strong> Mutar una lista directamente (ej: <code>uiState.lista.add(nuevo)</code>). Compose NO detectará el cambio y no redibujará la pantalla. Usa siempre <code>copy(lista = actual.lista + nuevo)</code>.</div>
+                    </div>
+                    <div class="protocol-card" style="border-left:5px solid #ef4444;">
+                        <div><strong style="color:#ef4444;">Trampa 3:</strong> Olvidar pasar <code>innerPadding</code> de <code>Scaffold</code> al Composable hijo. La barra del sistema tapará el primer elemento.</div>
+                    </div>
+                    <div class="protocol-card" style="border-left:5px solid #ef4444;">
+                        <div><strong style="color:#ef4444;">Trampa 4:</strong> No usar el operador Elvis <code>?: 0.0</code> tras <code>toDoubleOrNull()</code>. Si el campo está vacío, la app crasheará con <code>NullPointerException</code>.</div>
+                    </div>
+                    <div class="protocol-card" style="border-left:5px solid #ef4444;">
+                        <div><strong style="color:#ef4444;">Trampa 5:</strong> Usar <code>singleLine = true</code> en campos de descripción larga impidiendo al usuario ver lo que escribe.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2>Glosario de Bolsillo A-Z</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Término</th><th>Definición para el examen</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Composable</strong></td><td>Función anotada con <code>@Composable</code> que emite elementos visuales de la interfaz de usuario.</td></tr>
+                            <tr><td><strong>Recomposición</strong></td><td>Proceso mediante el cual Compose vuelve a invocar una función para actualizar la pantalla tras un cambio de estado.</td></tr>
+                            <tr><td><strong>StateFlow</strong></td><td>Flujo de datos reactivo que retiene siempre un valor actual y notifica a los suscriptores cuando cambia.</td></tr>
+                            <tr><td><strong>UDF</strong></td><td>Unidirectional Data Flow: patrón donde el estado viaja en una sola dirección hacia la UI y los eventos suben al ViewModel.</td></tr>
+                            <tr><td><strong>Smart Cast</strong></td><td>Capacidad del compilador de Kotlin para convertir automáticamente el tipo de una variable tras comprobarlo con <code>is</code>.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        </main>
+        <div id="search-results-area" style="padding: 32px 36px 80px 36px; max-width: 1200px; margin: 0 auto; width: 100%;"></div>
+    </div>
+    <button id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="Volver arriba">↑</button>
+
+<script>
+    var currentModuleIndex = 0;
+    var moduleList = [
+        'exam-protocol',
+        'speed-hub',
+        'visual-lab',
+        'ejercicios-clave',
+        'cap-1',
+        'cap-2',
+        'cap-3',
+        'cap-4',
+        'cap-5',
+        'cap-6',
+        'cap-7',
+        'cap-8',
+        'cap-9',
+        'cap-10',
+        'cap-11',
+        'cap-12'
+    ];
+
+    function updateProgressBar() {
+        var scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+        var scrollPos = window.scrollY;
+        var percent = scrollTotal > 0 ? (scrollPos / scrollTotal) * 100 : 0;
+        document.getElementById('reading-progress-bar').style.width = percent + '%';
+        
+        var backBtn = document.getElementById('back-to-top');
+        if (backBtn) backBtn.classList.toggle('visible', scrollPos > 300);
+    }
+    window.addEventListener('scroll', updateProgressBar, { passive: true });
+
+    function navigateToModule(id) {
+        var idx = moduleList.indexOf(id);
+        if (idx !== -1) currentModuleIndex = idx;
+
+        // Hide search results if any
+        document.getElementById('search-results-area').style.display = 'none';
+        document.getElementById('content-area').style.display = 'block';
+
+        // Update active sections
+        document.querySelectorAll('.chapter-section').forEach(function(sec) {
+            sec.style.display = (sec.id === id) ? 'block' : 'none';
+        });
+
+        // Update active sidebar nav item
+        document.querySelectorAll('.nav-item').forEach(function(item) {
+            var active = item.getAttribute('data-module') === id;
+            item.classList.toggle('active', active);
+        });
+
+        // Update chapter badge
+        var currentSection = document.getElementById(id);
+        var badgeTitle = currentSection ? (currentSection.getAttribute('data-chapter') || id) : id;
+        document.getElementById('book-chapter-badge').textContent = '📖 ' + badgeTitle;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Close sidebar on mobile
+        document.getElementById('sidebar').classList.remove('open');
+    }
+
+    function goToNextModule() {
+        if (currentModuleIndex < moduleList.length - 1) {
+            navigateToModule(moduleList[currentModuleIndex + 1]);
+        }
+    }
+
+    function goToPreviousModule() {
+        if (currentModuleIndex > 0) {
+            navigateToModule(moduleList[currentModuleIndex - 1]);
+        }
+    }
+
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function toggleTheme() {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var newTheme = isDark ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        document.getElementById('theme-icon').textContent = (newTheme === 'dark') ? '☀️' : '🌙';
+        try { localStorage.setItem('manual_android_theme', newTheme); } catch(e){}
+    }
+
+    // Restore saved theme
+    try {
+        var savedTheme = localStorage.getItem('manual_android_theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.getElementById('theme-icon').textContent = (savedTheme === 'dark') ? '☀️' : '🌙';
+        }
+    } catch(e){}
+
+    function copyCodeBlock(btn) {
+        var pre = btn.closest('.code-wrapper').querySelector('pre code');
+        if (!pre) return;
+        var text = pre.innerText || pre.textContent;
+        navigator.clipboard.writeText(text).then(function() {
+            var orig = btn.textContent;
+            btn.textContent = '¡Copiado!';
+            btn.style.background = '#10b981';
+            btn.style.color = 'white';
+            setTimeout(function() {
+                btn.textContent = orig;
+                btn.style.background = '';
+                btn.style.color = '';
+            }, 1400);
+        });
+    }
+
+    function checkQuiz(btn, isCorrect, explanation) {
+        var card = btn.closest('.quiz-card');
+        var options = card.querySelectorAll('.quiz-option');
+        options.forEach(function(opt) {
+            opt.disabled = true;
+            opt.classList.remove('correct', 'incorrect');
+        });
+        btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+        var explBox = card.querySelector('.quiz-explanation');
+        explBox.innerHTML = (isCorrect ? '<strong>✅ ¡Respuesta correcta!</strong> ' : '<strong>❌ Respuesta incorrecta.</strong> ') + explanation;
+        explBox.classList.add('visible');
+    }
+
+    function handleSearch() {
+        var query = document.getElementById('global-search').value.trim().toLowerCase();
+        var resultsArea = document.getElementById('search-results-area');
+        var contentArea = document.getElementById('content-area');
+
+        if (!query) {
+            resultsArea.style.display = 'none';
+            contentArea.style.display = 'block';
+            navigateToModule(moduleList[currentModuleIndex]);
+            return;
+        }
+
+        resultsArea.innerHTML = '';
+        resultsArea.style.display = 'block';
+        contentArea.style.display = 'none';
+
+        var matches = [];
+        document.querySelectorAll('.chapter-section').forEach(function(sec) {
+            var text = sec.textContent.toLowerCase();
+            if (text.indexOf(query) !== -1) {
+                var title = sec.querySelector('.module-title') ? sec.querySelector('.module-title').textContent : sec.id;
+                var desc = sec.querySelector('.module-desc') ? sec.querySelector('.module-desc').textContent : '';
+                matches.push({ id: sec.id, title: title, desc: desc });
+            }
+        });
+
+        if (matches.length === 0) {
+            resultsArea.innerHTML = '<div style="padding:40px; text-align:center; color:var(--text-muted); font-size:1.1rem;">🔍 No se encontraron resultados para "<strong>' + query + '</strong>". Prueba con palabras como <em>StateFlow</em>, <em>LazyColumn</em>, <em>copy</em> o <em>Scaffold</em>.</div>';
+            return;
+        }
+
+        var header = document.createElement('h2');
+        header.style.marginBottom = '20px';
+        header.textContent = 'Resultados de búsqueda: ' + matches.length + ' secciones encontradas';
+        resultsArea.appendChild(header);
+
+        matches.forEach(function(m) {
+            var card = document.createElement('div');
+            card.className = 'search-result-item';
+            card.innerHTML = '<div class="search-result-title">' + m.title + '</div><div class="search-result-snippet">' + m.desc + '</div>';
+            card.onclick = function() {
+                document.getElementById('global-search').value = '';
+                resultsArea.style.display = 'none';
+                contentArea.style.display = 'block';
+                navigateToModule(m.id);
+            };
+            resultsArea.appendChild(card);
+        });
+    }
+
+    // Teclado
+    window.addEventListener('keydown', function(e) {
+        var typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
+        if (e.key === 'Escape') {
+            document.getElementById('global-search').value = '';
+            handleSearch();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            navigateToModule('speed-hub');
+        }
+        if (!typing && e.key === 'ArrowRight') goToNextModule();
+        if (!typing && e.key === 'ArrowLeft') goToPreviousModule();
+    });
+
+    // Iniciar
+    document.addEventListener('DOMContentLoaded', function() {
+        navigateToModule('exam-protocol');
+    });
+</script>
+
+</body>
+</html>

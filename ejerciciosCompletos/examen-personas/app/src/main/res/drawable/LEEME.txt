@@ -1,0 +1,3 @@
+Añade aquí dos imágenes:
+  alumno.png
+  profesor.png
